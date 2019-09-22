@@ -71,7 +71,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'puraverdura.wsgi.application'
 
 
-LANGUAGE_CODE = 'de_CH'
+LANGUAGE_CODE = 'de-ch'
 
 SITE_ID = 1
 
@@ -189,7 +189,6 @@ BUSINESS_REGULATIONS = ""
 BYLAWS = ""
 MAIL_TEMPLATE = "mails/email.html"
 STYLE_SHEET = "/static/css/personal.css"
-BOOTSTRAP = "/static/external/bootstrap-3.3.1/css/bootstrap.min.css"
 FAVICON = "/static/img/favicono.ico"
 FAQ_DOC = ""
 EXTRA_SUB_INFO = ""
