@@ -155,11 +155,11 @@ VOCABULARY = {
     'assignment_pl' : 'Arbeitseinsätze',
     'share' : 'Anteilschein',
     'share_pl' : 'Anteilscheine',
-    'subscription' : 'Abo',
-    'subscription_pl' : 'Abos',
+    'subscription' : 'Ernteanteil',
+    'subscription_pl' : 'Ernteanteile',
     'co_member' : 'Mitabonnent',
     'co_member_pl' : 'Mitabonnenten',
-    'price' : 'Betriebsbeitrag',
+    'price' : 'Jahresbeitrag',
     'member_type' : 'Mitglied',
     'member_type_pl' : 'Mitglieder',
     'depot' : 'Depot',
@@ -202,7 +202,7 @@ PROMOTED_JOB_TYPES = []
 PROMOTED_JOBS_AMOUNT = 2
 DEPOT_LIST_GENERATION_DAYS = [1,2,3,4,5,6,7]	
 BILLING = False
-BUSINESS_YEAR_START = {"day":1, "month":1}
+BUSINESS_YEAR_START = {"day":1, "month":4}
 BUSINESS_YEAR_CANCELATION_MONTH = 10
 MEMBERSHIP_END_MONTH = 6
 IMAGES = {'status_100': '/static/img/status_100.png',
