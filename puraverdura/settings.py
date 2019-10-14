@@ -216,7 +216,7 @@ IMAGES = {'status_100': '/static/img/status_100.png',
             'core': '/static/img/core.png'}
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 EMAILS = {
-    'welcome': '/templates/puraverdura_emails/willkommen_mail.txt',
+    'welcome': 'mails/welcome_mail.txt',
     'co_welcome': 'mails/welcome_added_mail.txt',
     'co_added': 'mails/added_mail.txt',
     'password': 'mails/password_reset_mail.txt',
