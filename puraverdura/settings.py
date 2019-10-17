@@ -239,7 +239,7 @@ GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 EMAILS = {
     'welcome': 'puraverdura_emails/willkommen_mail.txt',
-    'co_welcome': 'mails/welcome_added_mail.txt',
+    'co_welcome': 'puraverdura_emails/mitabonnent_willkommen.txt',
     'co_added': 'mails/added_mail.txt',
     'password': 'mails/password_reset_mail.txt',
     'j_reminder': 'mails/job_reminder_mail.txt',

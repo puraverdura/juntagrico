@@ -1,0 +1,60 @@
+{% extends "randebandi_emails/mail_zusatz.txt" %}
+{% load i18n %}
+{% load config %}
+{% block content %}
+{% config "enable_shares" as c_enable_shares %}
+{% config "info_email" as c_info_email %}
+{% config "bylaws" as c_bylaws %}
+{% config "business_regulations" as c_business_regulations %}
+{% config "faq_doc" as c_faq_doc %}
+{% config "organisation_name" as c_organisation_name %}
+{% enriched_organisation "D" as v_d_enriched_organisation %}
+{% vocabulary "co_member" as v_co_member %}
+{% vocabulary "share_pl" as v_share_pl %}
+{% vocabulary "member_type" as v_member_type %}
+{% vocabulary "subscription" as v_subscription %}
+{% blocktrans %}Wir freuen uns, dich bei {{ v_d_enriched_organisation }} zu begrüssen.{% endblocktrans %}
+
+{% if c_enable_shares %}
+{% blocktrans %}Soeben hat dich '{{name}}' als {{ v_co_member }} hinzugefügt und für dich {{ shares }} {{ v_share_pl }} bestellt.{% endblocktrans %}
+{% else %}
+{% blocktrans %}Soeben hat dich '{{name}}' als {{ v_co_member }} hinzugefügt.{% endblocktrans %}
+{% endif %}
+
+{% trans "Folgend findest du unsere Grundlagendokumente" %}:
+- {% trans "die Statuten" %} ({{ c_bylaws|safe }}) {% if c_business_regulations.strip %}
+- {% trans "das Betriebsreglement" %} ({{ c_business_regulations|safe }})
+{% endif %}
+
+--------------------------
+Deine Login-Informationen
+
+{% blocktrans %}Melde dich mit den untenstehenden Angaben im Mitgliederportal von Pura Verdura auf {{serverurl}} an. Dort findest du deine Abo-Übersicht und verwaltest deine Tätigkeitsbereiche, Einsätze und Personalien.
+
+Um dich einzuloggen, kannst du folgende Daten benutzen{% endblocktrans %}:
+
+{% trans "Email" %}: {{ username }}
+{% trans "Passwort" %}: {{ password }}
+
+{% blocktrans %}Klicke bitte auf den folgenden Bestätigungslink, um deine Emailadresse zu bestätigen und damit wir dich als {{ v_member_type }} freischalten können:
+{% endblocktrans %} {{ serverurl }}/my/confirm/{{ onetime_code }}
+
+{% trans "Bitte setze dir hier gleich ein neues Passwort:" %} {{serverurl}}/my/password
+
+--------------------------------
+Informationen zum Mitgliederportal von Pura Verdura
+
+Um deine Anmeldung abzuschliessen, trage dich bitte unter „Tätigkeitsbereiche“ in die Bereiche ein die dir gefallen (damit wir bei Umfragen wissen, wer wo mithelfen möchte).
+
+{% if c_faq_doc.strip %}
+{% blocktrans with fd=c_faq_doc|safe %}Bei weiteren Fragen kannst du gerne die FAQ-Seite ({{ fd }}) besuchen oder du schreibst uns eine Mail an {{ c_info_email }}.{% endblocktrans %}
+{% else %}
+{% blocktrans %}Bei Fragen kannst du uns gerne ein E-Mail schreiben an {{ c_info_email }}{% endblocktrans %}
+{% endif %}
+
+Wir freuen uns, Dich bald persönlich kennen zu lernen.
+
+{% blocktrans trimmed %}
+Die {{ c_organisation_name }}-Betriebsgruppe
+{% endblocktrans %}
+{% endblock %}
