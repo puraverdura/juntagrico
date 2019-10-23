@@ -182,7 +182,7 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "0000",
             "NAME" : "ABS",
             "ESR" : ""}
 INFO_EMAIL = "info@puraverdura.ch"
-SERVER_URL = "www.puraverdura.org"
+SERVER_URL = "www.puraverdura.ch"
 ADMINPORTAL_NAME = "Mitgliederplattform Pura Verdura"
 ADMINPORTAL_SERVER_URL = "login.puraverdura.ch"
 BUSINESS_REGULATIONS = ""
