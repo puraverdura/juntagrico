@@ -17,7 +17,7 @@ Jedes Mitglied der Kooperative kauft mindestens einen Anteilschein. Somit bist d
 --------------------------
 Deine Login-Informationen
 
-{% blocktrans %}Melde dich mit den untenstehenden Angaben im Mitgliederportal von Pura Verdura auf {{serverurl}} an. Dort findest du deine Abo-Übersicht und verwaltest deine Tätigkeitsbereiche, Einsätze und Personalien.
+{% blocktrans %}Melde dich mit den untenstehenden Angaben im Mitgliederportal von Pura Verdura auf {{serverurl}} an. Dort findest du deine Abo-Übersicht und kannst dich für Arbeitseinsätze eintragen.
 
 Um dich einzuloggen, kannst du folgende Daten benutzen{% endblocktrans %}:
 
@@ -31,8 +31,6 @@ Um dich einzuloggen, kannst du folgende Daten benutzen{% endblocktrans %}:
 
 --------------------------------
 Informationen zum Mitgliederportal von Pura Verdura
-
-Um deine Anmeldung abzuschliessen, trage dich bitte unter „Tätigkeitsbereiche“ in die Bereiche ein die dir gefallen (damit wir bei Umfragen wissen, wer wo mithelfen möchte).
 
 {% if c_faq_doc.strip %}
 {% blocktrans with fd=c_faq_doc|safe %}Bei weiteren Fragen kannst du gerne die FAQ-Seite ({{ fd }}) besuchen oder du schreibst uns eine Mail an {{ c_info_email }}.{% endblocktrans %}
