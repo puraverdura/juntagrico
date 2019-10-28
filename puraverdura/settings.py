@@ -176,16 +176,16 @@ ORGANISATION_ADDRESS = {"name":"Pura Verdura",
             "city" : "Zürich",
             "extra" : "CH"}
 ORGANISATION_PHONE =''
-ORGANISATION_BANK_CONNECTION = {"PC" : "0000",
-            "IBAN" : "0000",
-            "BIC" : "0000",
-            "NAME" : "ABS",
+ORGANISATION_BANK_CONNECTION = {"PC" : "89-690904-5",
+            "IBAN" : "CH62 0900 0000 8969 0904 5",
+            "BIC" : "",
+            "NAME" : "Post Finance",
             "ESR" : ""}
 INFO_EMAIL = "info@puraverdura.ch"
 SERVER_URL = "www.puraverdura.ch"
 ADMINPORTAL_NAME = "Mitgliederplattform Pura Verdura"
 ADMINPORTAL_SERVER_URL = "login.puraverdura.ch"
-BUSINESS_REGULATIONS = ""
+BUSINESS_REGULATIONS = "https://www.puraverdura.ch/wp-content/uploads/20191025-Betriebsreglement-Pura-Verdura.pdf"
 BYLAWS = "https://www.puraverdura.ch/wp-content/uploads/20191026_Final-nach-GV-Statuten_Pura-Verdura.pdf"
 MAIL_TEMPLATE = "mails/email.html"
 STYLE_SHEET = "/static/css/individual.css"
