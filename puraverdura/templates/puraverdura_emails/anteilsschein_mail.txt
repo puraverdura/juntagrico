@@ -17,7 +17,7 @@
 
 {% blocktrans %}Sobald du den Betrag von {{ c_currency }} {{ c_share_price }} auf das folgende Konto überwiesen hast, bist Du offiziell Mitglied bei {{ v_d_enriched_organisation }}. Damit bist Du berechtigt einen Ernteanteil zu beziehen.{% endblocktrans %}
 
-{% blocktrans with sid=share.id %}Wichtig: Bitte gib in den Zahlungsinformationen die Anteilschein-Nummer {{ sid }} an.
+{% blocktrans with sid=share.id %}Wichtig: Bitte gib in den Zahlungsinformationen die Anteilschein-Nummer {{ sid }} und die Emailadresse des Halters / der Halterin an. Letzteres ist vor alem wichtig, wenn du diesen Anteilschein für jemand anderen bezahlst.
 {% endblocktrans %}
 
 Konto:
