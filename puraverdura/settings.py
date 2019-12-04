@@ -210,7 +210,7 @@ IMAGES = {'status_100': '/static/img/status_100.png',
             'status_50': '/static/img/status_50.png',
             'status_25': '/static/img/status_25.png',
             'status_0': '/static/img/status_0.png',
-            'single_full': '/static/img/single_full.png',
+            'single_full': '/static/img/schaufel_pickel_colored.png',
             'single_empty': '/static/img/schaufel_pickel_iconized.png',
             'single_core': '/static/img/single_core.png',
             'core': '/static/img/core.png'}
