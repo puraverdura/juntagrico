@@ -205,15 +205,15 @@ BILLING = False
 BUSINESS_YEAR_START = {"day":1, "month":4}
 BUSINESS_YEAR_CANCELATION_MONTH = 10
 MEMBERSHIP_END_MONTH = 6
-IMAGES = {'status_100': '/static/img/status_100.png',
-            'status_75': '/static/img/status_75.png',
-            'status_50': '/static/img/status_50.png',
-            'status_25': '/static/img/status_25.png',
-            'status_0': '/static/img/status_50_cropped_2.png',
+IMAGES = {'status_100': '/static/img/status_100_cropped.png',
+            'status_75': '/static/img/status_75_cropped.png',
+            'status_50': '/static/img/status_50_cropped.png',
+            'status_25': '/static/img/status_25_cropped.png',
+            'status_0': '/static/img/status_0_cropped.png',
             'single_full': '/static/img/schaufel_pickel_colored.png',
             'single_empty': '/static/img/schaufel_pickel_gray.png',
             'single_core': '/static/img/single_core.png',
-            'core': '/static/img/core.png'}
+            'core': '/static/img/schaufel_iconized.png'}
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 # EMAILS = {
