@@ -176,10 +176,10 @@ ORGANISATION_ADDRESS = {"name":"Pura Verdura",
             "city" : "Zürich",
             "extra" : "CH"}
 ORGANISATION_PHONE =''
-ORGANISATION_BANK_CONNECTION = {"PC" : "89-690904-5",
-            "IBAN" : "CH62 0900 0000 8969 0904 5",
-            "BIC" : "POFICHBEXXX",
-            "NAME" : "Post Finance",
+ORGANISATION_BANK_CONNECTION = {"PC" : "",
+            "IBAN" : "CH38 0839 0036 8201 1000 0",
+            "BIC" : "ABSOCH22XXX",
+            "NAME" : "ABS",
             "ESR" : ""}
 INFO_EMAIL = "info@puraverdura.ch"
 SERVER_URL = "www.puraverdura.ch"
