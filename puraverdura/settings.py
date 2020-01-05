@@ -212,8 +212,17 @@ IMAGES = {'status_100': '/static/img/status_100_cropped.png',
             'status_0': '/static/img/status_0_cropped.png',
             'single_full': '/static/img/schaufel_pickel_colored.png',
             'single_empty': '/static/img/schaufel_pickel_gray.png',
-            'single_core': '/static/img/schaufel_pickel_colored.png',
+            'single_core': '/static/img/schaufel_iconized.png',
             'core': '/static/img/schaufel_iconized.png'}
+#IMAGES = {'status_100': '/static/img/status_100_cropped.png',
+#            'status_75': '/static/img/status_75_cropped.png',
+#            'status_50': '/static/img/status_50_cropped.png',
+#            'status_25': '/static/img/status_25_cropped.png',
+#            'status_0': '/static/img/status_0_cropped.png',
+#            'single_full': '/static/img/schaufel_pickel_colored.png',
+#            'single_empty': '/static/img/schaufel_pickel_gray.png',
+#            'single_core': '/static/img/schaufel_pickel_colored.png',
+#            'core': '/static/img/schaufel_iconized.png'}
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 # EMAILS = {
