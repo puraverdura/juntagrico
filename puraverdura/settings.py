@@ -213,7 +213,8 @@ IMAGES = {'status_100': '/static/img/status_100_cropped.png',
             'single_full': '/static/img/schaufel_pickel_colored.png',
             'single_empty': '/static/img/schaufel_pickel_gray.png',
             'single_core': '/static/img/schaufel_pickel_colored.png',
-            'core': '/static/img/schaufel_iconized.png'}
+            #'core': '/static/img/schaufel_iconized.png'}
+            'core': '/static/img/Transparent_Pixel.png'}
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
