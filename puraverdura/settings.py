@@ -241,19 +241,6 @@ GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 EMAILS = {
     'welcome': 'puraverdura_emails/willkommen_mail.txt',
     'co_welcome': 'puraverdura_emails/mitabonnent_willkommen.txt',
-    'co_added': 'mails/added_mail.txt',
-    'password': 'mails/password_reset_mail.txt',
-    'j_reminder': 'mails/job_reminder_mail.txt',
-    'j_canceled': 'mails/job_canceled_mail.txt',
     'confirm': 'mails/confirm.txt',
-    'j_changed': 'mails/job_time_changed_mail.txt',
-    'j_signup': 'mails/job_signup_mail.txt',
-    'd_changed': 'mails/depot_changed_mail.txt',
     's_created': 'puraverdura_emails/anteilsschein_mail.txt',
-    'n_sub': 'mails/new_subscription.txt',
-    's_canceled': 'mails/subscription_canceled_mail.txt',
-    'm_canceled': 'mails/membership_canceled_mail.txt',
-    'b_share': 'mails/bill_share.txt',
-    'b_sub': 'mails/bill_sub.txt',
-    'b_esub': 'mails/bill_extrasub.txt'
 }
