@@ -26,7 +26,7 @@ Du hast momentan (noch) keinen Ernteanteil bestellt. Um einen Ernteanteil zu bes
 {% endblocktrans %}
 {% else %}
 {% blocktrans %}
-Test
+{{subscription.id}}
 {% endblocktrans %}
 {% endif %}
 
