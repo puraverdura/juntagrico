@@ -16,20 +16,6 @@ Jedes Mitglied der Kooperative kauft mindestens einen Anteilschein. Somit bist d
 -> Pro gekauften Anteilschein erhältst du sogleich ein separates Email mit entsprechenden Zahlungsinformationen zugesandt.
 
 
-{% if future_subscription %}
-{% blocktrans %}
-Dein Ernteanteil ist beantragt und du stehst auf der Warteliste. Sobald die Zahlung für deinen Ernteanteil eingetroffen ist wird dein Account aktiviert. Mehr Informationen findest du im Bereich "Ernteanteil" auf {{serverurl}}.
-{% endblocktrans %}
-{% elif can_order %}
-{% blocktrans %} 
-Du hast momentan (noch) keinen Ernteanteil bestellt. Um einen Ernteanteil zu bestellen gehe zum Menüpunkt "Ernteanteil" auf {{serverurl}}.
-{% endblocktrans %}
-{% else %}
-{% blocktrans %}
-{{subscription.id}}
-{% endblocktrans %}
-{% endif %}
-
 --------------------------
 Deine Login-Informationen
 
