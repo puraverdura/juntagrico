@@ -19,7 +19,7 @@
 Bis der Ernteanteil bezahlt ist wirst du auf die Warteliste gesetzt. Mehr informationen dazu im Abschnitt "Ernteanteil" auf unserer Mitgliederplattform: https://login.puraverdura.ch {% endblocktrans %}
 
 
-{% blocktrans with sid=share.id %}Wichtig: Bitte gib in den Zahlungsinformationen die Anteilschein-Nummer {{ sid }} und die Emailadresse des Halters / der Halterin an. Letzteres ist vor alem wichtig, wenn du diesen Anteilschein für jemand anderen bezahlst.
+{% blocktrans with sid=share.id %}Wichtig: Bitte gib in den Zahlungsinformationen die Anteilschein-Nummer {{ sid }} und die Emailadresse des Halters / der Halterin an. Letzteres ist vor allem wichtig, wenn du diesen Anteilschein für jemand anderen bezahlst.
 {% endblocktrans %}
 
 Konto:
@@ -32,6 +32,6 @@ Konto:
     {% trans "BIC" %}: {{ c_bank.BIC }}
 
 {% blocktrans trimmed %}
-Das {{ c_organisation_name }}-Kernteam
+Die {{ c_organisation_name }}-Betriebsgruppe
 {% endblocktrans %}
 {% endblock %}

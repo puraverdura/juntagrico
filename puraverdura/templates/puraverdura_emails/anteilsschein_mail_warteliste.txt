@@ -1,0 +1,26 @@
+{% extends "puraverdura_emails/mail_zusatz.txt" %}
+{% load i18n %}
+{% load config %}
+{% block content %}
+{% config "organisation_address" as c_addr %}
+{% config "organisation_bank_connection" as c_bank %}
+{% config "share_price" as c_share_price %}
+{% config "currency" as c_currency %}
+{% config "organisation_name" as c_organisation_name %}
+{% enriched_organisation "D" as v_d_enriched_organisation %}
+{% vocabulary "share" as v_share %}
+{% vocabulary "share_pl" as v_share_pl %}
+{% trans "Guten Tag" %}
+
+{% blocktrans with sid=share.id %}Du hast bei {{ v_d_enriched_organisation }} 1 {{ v_share }} erworben.
+{% endblocktrans %}
+
+{% blocktrans %}Du bist zurzeit auf der Warteliste bis zu unserer Generalversammlung (GV) am 28. Mai 2020. Bis dann bitten wir dich, das Geld noch nicht zu überweisen. Nach der GV wirst du wieder von uns hören. Dann werden wir dich weiter über Anteilsschein und Ernteanteil informieren.
+
+Wir danken dir für deine Geduld!
+{% endblocktrans %}
+
+{% blocktrans trimmed %}
+Die {{ c_organisation_name }}-Betriebsgruppe
+{% endblocktrans %}
+{% endblock %}
