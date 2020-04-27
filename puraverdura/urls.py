@@ -16,9 +16,20 @@ from django.conf.urls import include, url
 from django.contrib import admin
 import juntagrico
 
+# Custom Views of Pura Verdura
+from puraverdura import views as puraverdura
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('juntagrico.urls')),
     url(r'^$', juntagrico.views.home),
     url(r'^impersonate/', include('impersonate.urls')),
+
+    # stats
+    url('stats/', puraverdura.stats),
+
+    # pdf (override)
+    url('my/pdf/depotlist', puraverdura.depot_list),
+    url('my/pdf/depotoverview', puraverdura.depot_overview),
+    url('my/pdf/amountoverview', puraverdura.amount_overview),
 ]
