@@ -244,5 +244,5 @@ EMAILS = {
     'welcome': 'puraverdura_emails/willkommen_mail.txt',
     'co_welcome': 'puraverdura_emails/mitabonnent_willkommen.txt',
     'confirm': 'mails/confirm.txt',
-    's_created': 'puraverdura_emails/anteilsschein_mail_warteliste.txt',
+    's_created': 'puraverdura_emails/anteilsschein_mail.txt',
 }
