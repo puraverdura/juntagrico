@@ -45,9 +45,9 @@ Um dich einzuloggen, kannst du folgende Daten benutzen{% endblocktrans %}:
 Informationen zum Mitgliederportal von Pura Verdura
 
 {% if c_faq_doc.strip %}
-{% blocktrans with fd=c_faq_doc|safe %}Bei weiteren Fragen kannst du gerne die FAQ-Seite ({{ fd }}) besuchen oder du schreibst uns eine Mail an {{ c_info_email }}.{% endblocktrans %}
+{% blocktrans with fd=c_faq_doc|safe %}Bei weiteren Fragen kannst du gerne die FAQ-Seite ({{ fd }}) besuchen oder du schreibst uns eine Mail an mitglieder@puraverdura.ch.{% endblocktrans %}
 {% else %}
-{% blocktrans %}Bei Fragen kannst du uns gerne ein E-Mail schreiben an {{ c_info_email }}{% endblocktrans %}
+{% blocktrans %}Bei Fragen kannst du uns gerne ein E-Mail schreiben an mitglieder@puraverdura.ch.{% endblocktrans %}
 {% endif %}
 
 Wir freuen uns, Dich bald persönlich kennen zu lernen.
