@@ -93,7 +93,7 @@
                 if (txt.length > 0 && txt != "-")
                     emails.push(txt);
             });
-            var emails_formated = emails.join("; ");
+            var emails_formated = emails.join(";\n");
             console.log(emails_formated)
             window.alert(`Kopiere die E-Mail Adressen in dein E-Mail Programm um eine Nachricht an alle Mitglieder in der Liste zu senden:\n\n${emails_formated}\n\n`);
         }
