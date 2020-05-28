@@ -90,14 +90,12 @@
             var emails = [];
             $("#filter-table").find("tr").each(function () {
                 var txt = $(".email", this).text().trim();
-                if (txt.length > 0)
+                if (txt.length > 0 && txt != "-")
                     emails.push(txt);
             });
-            var emails_formated = emails.join("\n");
+            var emails_formated = emails.join("; ");
             console.log(emails_formated)
-            
-            // In Zwischenablage kopieren
-            window.clipboardData.setData("Text",emails_formated);
+            window.alert(`Kopiere die E-Mail Adressen in dein E-Mail Programm um eine Nachricht an alle Mitglieder in der Liste zu senden:\n\n${emails_formated}\n\n`);
         }
         var email_string = "{% trans "Email senden" %}";
         var send_string = "{% trans "senden" %}";
