@@ -10,16 +10,9 @@
 {% endblock %}
 {% block content %}
     {% vocabulary "assignment_pl" as v_assignment_pl %}
-    <form id="email-sender" action="{% if mail_url %}{% url mail_url %}{% else %}{% url 'mail' %}{% endif %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="recipients" id="recipients"/>
-        <input type="hidden"name="recipients_count"id="recipients_count"/>
-        {% if can_send_mails %}
-            <button type="submit" class="btn btn-success" id="send-email">
-                {% trans "Email senden" %}
-            </button>
-        {% endif %}
-    </form>
+    <button class="btn btn-success" id="copy-email">
+        {% trans "Email Adresse(n) kopieren" %}
+    </button>
     <div id="filter">
         <table id="filter-table" class="list table" style="display: table;">
             <thead>
@@ -77,7 +70,11 @@
                             {{ member.subscription.depot.name }}
                         </td>
                         <td class="email">
-                            {{ member.email }}
+                            {% if member.reachable_by_email %}
+                                {{ member.email }}
+                            {% else %}
+                                -
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -87,6 +84,21 @@
     <br/>
     <br/>
     <script>
+
+        var copy_btn = document.getElementById("copy-email");
+        copy_btn.onclick = function(){
+            var emails = [];
+            $("#filter-table").find("tr").each(function () {
+                var txt = $(".email", this).text().trim();
+                if (txt.length > 0)
+                    emails.push(txt);
+            });
+            var emails_formated = emails.join("\n");
+            console.log(emails_formated)
+            
+            // In Zwischenablage kopieren
+            window.clipboardData.setData("Text",emails_formated);
+        }
         var email_string = "{% trans "Email senden" %}";
         var send_string = "{% trans "senden" %}";
         var email_single_string = "{% trans "Email an diesen" %}";
