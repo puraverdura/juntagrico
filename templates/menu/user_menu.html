@@ -53,11 +53,13 @@
             {% trans "Kontakt" %}
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="my/filters_emails">
-            {% trans "Mitglieder E-Mails" %}
-        </a>
-    </li>
+    {% if operation_group %}
+        <li class="nav-item">
+            <a class="nav-link" href="my/filters_emails">
+                {% trans "Mitglieder E-Mails" %}
+            </a>
+        </li>
+    {% endif %}
     {% for user_menu in user_menus %}
         {% include user_menu %}
     {% endfor %}
