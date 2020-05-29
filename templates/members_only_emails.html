@@ -52,11 +52,11 @@
                     <tr>
                         <td>
                             {% if operation_group %}
-                                <a href="/impersonate/{{ member.user.id }}" target="__blank">
-                                {% endif %}
+                            <a href="/impersonate/{{ member.user.id }}" target="__blank">
+                            {% endif %}
                                 {{ member.first_name }} {{ member.last_name }}
-                                {% if operation_group %}
-                                </a>
+                            {% if operation_group %}
+                            </a>
                             {% endif %}
                         </td>
                         <td>
