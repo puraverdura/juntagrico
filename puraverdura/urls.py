@@ -13,6 +13,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
+from django.urls import path
 from django.contrib import admin
 import juntagrico
 
@@ -33,6 +34,6 @@ urlpatterns = [
     url('my/pdf/depotoverview', puraverdura.depot_overview),
     url('my/pdf/amountoverview', puraverdura.amount_overview),
 
-    # filter override
-    url('my/filters_emails', puraverdura.filters),
+    # member email list
+    path('my/filters_emails/', puraverdura.filters, name='filters_emails'),
 ]
