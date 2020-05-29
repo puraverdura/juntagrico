@@ -32,4 +32,7 @@ urlpatterns = [
     url('my/pdf/depotlist', puraverdura.depot_list),
     url('my/pdf/depotoverview', puraverdura.depot_overview),
     url('my/pdf/amountoverview', puraverdura.amount_overview),
+
+    # filter override
+    url('my/filters_emails', puraverdura.filters),
 ]

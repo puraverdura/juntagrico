@@ -1,6 +1,6 @@
 # import vobject
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.safestring import mark_safe
 from juntagrico.dao.extrasubscriptioncategorydao import ExtraSubscriptionCategoryDao
 from juntagrico.dao.memberdao import MemberDao
@@ -19,6 +19,7 @@ from django.conf import settings
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import render
 
 from juntagrico.models import Member, Subscription
 
@@ -27,6 +28,7 @@ from juntagrico.dao.listmessagedao import ListMessageDao
 from juntagrico.dao.subscriptionsizedao import SubscriptionSizeDao
 from juntagrico.util.pdf import render_to_pdf_http
 from juntagrico.util.temporal import weekdays, start_of_business_year, end_of_business_year
+from juntagrico.views import get_menu_dict
 from juntagrico.config import Config
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -148,6 +150,15 @@ def depot_overview(request):
 def amount_overview(request):
     return render_to_pdf_http('exports/amount_overview.html', generate_pdf_dict(), 'amount_overview.pdf')
 
+
+@permission_required('juntagrico.can_filter_members')
+def filters(request):
+    members = MemberDao.active_members_with_assignments_count()
+    renderdict = get_menu_dict(request)
+    renderdict.update({
+        'members': members
+    })
+    return render(request, 'members_only_emails.html', renderdict)
 
 @staff_member_required
 def stats(request):
