@@ -72,7 +72,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'puraverdura.wsgi.application'
 
 
-LANGUAGE_CODE = 'de-ch'
+LANGUAGE_CODE = 'de'
 
 SITE_ID = 1
 
@@ -83,6 +83,8 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 USE_L10N = True
+
+USE_TZ = True
 
 DATE_INPUT_FORMATS =['%d.%m.%Y',]
 
