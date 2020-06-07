@@ -30,10 +30,14 @@ urlpatterns = [
     url('stats/', puraverdura.stats),
 
     # pdf (override)
-    url('my/pdf/depotlist', puraverdura.depot_list),
-    url('my/pdf/depotoverview', puraverdura.depot_overview),
-    url('my/pdf/amountoverview', puraverdura.amount_overview),
+    # url('my/pdf/depotlist', puraverdura.depot_list),
+    # url('my/pdf/depotoverview', puraverdura.depot_overview),
+    # url('my/pdf/amountoverview', puraverdura.amount_overview),
 
     # member email list
     path('my/filters_emails/', puraverdura.filters, name='filters_emails'),
+
+    # override profile (trailing forward slach is important)
+    path('my/profile/', puraverdura.profile, name='profile'),
+
 ]

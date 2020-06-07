@@ -9,6 +9,21 @@
     </h3>
 {% endblock %}
 {% block content %}
+    <div id="disclaimer">
+        <span>
+            Hier findest du eine filterbare Liste der E-mail Adressen von allen Mitgliedern von Pura Verdura. <br>
+            Falls du deine E-mail Adresse nicht anzeigen lassen willst kannst du die Einstellung in <a href="{% url 'profile' %}">Personalien</a> anpassen.
+            <br><br> 
+            Nutze die Filterboxen um nur diejenigen Mitglieder anzuzeigen, welchen du eine E-mail senden möchtest: z.B. Alle Personen aus dem Depot Balgrist. <br>
+            Drücke auf den grünen Knopf unten, um die E-Mail Adressen aller Mitglieder in der gefilterten Liste in anzeigen zu lassen, damit du diese in dein Mailprogramm kopieren kannst.
+        </span>
+        <br><br>
+        <span>
+            Bitte diese Mail-Adressen vertraulich behandeln, nicht mit Dritten teilen und nur im Zusammenhang mit Pura Verdura benutzen.
+        </span>
+    </div>
+    <br>
+    <br>
     {% vocabulary "assignment_pl" as v_assignment_pl %}
     <button class="btn btn-success" id="copy-email">
         {% trans "Email Adresse(n) kopieren" %}
@@ -95,7 +110,7 @@
             });
             var emails_formated = emails.join(";\n");
             console.log(emails_formated)
-            window.alert(`Kopiere die E-Mail Adressen in dein E-Mail Programm um eine Nachricht an alle Mitglieder in der Liste zu senden:\n\n${emails_formated}\n\n`);
+            window.alert(`Kopiere die E-Mail Adressen unten in dein E-Mail Programm um eine Nachricht an alle Mitglieder in der Liste zu senden:\n\n${emails_formated}\n\n`);
         }
         var email_string = "{% trans "Email senden" %}";
         var send_string = "{% trans "senden" %}";
