@@ -38,6 +38,7 @@ from puraverdura.utils.stats import assignments_by_subscription, assignments_by_
     members_with_assignments
 from puraverdura.utils.utils import date_from_get, get_delivery_dates_of_month
 
+from puraverdura.forms import MemberProfileForm
 
 # API
 
@@ -241,79 +242,34 @@ def stats(request):
     return response
 
 
-# @staff_member_required
-# def excel_export_subscriptions(request):
-#     filename = '{}_{}.xlsx'.format(Config.vocabulary('subscription_pl'), timezone.now().date())
-#     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-#     response['Content-Disposition'] = 'attachment; filename=' + filename
-#     wb = Workbook()
 
-#     # Sheet 1: Subscriptions with prices
-#     ws1 = wb.active
-#     ws1.title = Config.vocabulary('subscription_pl')
-
-#     # header
-#     ws1.cell(1, 1, u"{}".format(Config.vocabulary('member_pl')))
-#     ws1.column_dimensions['A'].width = 40
-#     ws1.cell(1, 2, u"{}".format(_('E-Mail')))
-#     ws1.column_dimensions['B'].width = 30
-#     ws1.cell(1, 3, u"{}".format(_('Gesamtpreis [{}]').format(Config.currency())))
-#     ws1.column_dimensions['C'].width = 17
-#     for column, subs_type in enumerate(SubscriptionTypeDao.get_all(), 4):
-#         ws1.cell(1, column, u"EAT {}".format(subs_type.price))
-#         ws1.column_dimensions[get_column_letter(column)].width = 17
-
-#     # data
-#     for row, subscription in enumerate(SubscriptionDao.all_active_subscritions(), 2):
-#         ws1.cell(row, 1, ", ".join([member.get_name() for member in subscription.members.all()]))
-#         ws1.cell(row, 2, subscription.primary_member.email)
-#         ws1.cell(row, 3, subscription.price)
-#         for column, subs_type in enumerate(SubscriptionTypeDao.get_all(), 4):
-#             ws1.cell(row, column, subscription.types.filter(id=subs_type.id).count())
-
-#     ws1.freeze_panes = ws1['A2']
-#     wb.save(response)
-#     return response
-
-
-# @login_required
-# def sso(request):
-#     payload = request.GET.get('sso')
-#     signature = request.GET.get('sig')
-
-#     if payload is None or signature is None:
-#         raise Exception('No SSO payload or signature. Please contact support if this problem persists.')
-
-#     # Validate the payload
-#     try:
-#         payload = bytes(parse.unquote(payload), encoding='utf-8')
-#         decoded = base64.decodebytes(payload).decode('utf-8')
-#         assert 'nonce' in decoded
-#         assert len(payload) > 0
-#     except AssertionError:
-#         raise Exception('Invalid payload. Please contact support if this problem persists.')
-
-#     key = bytes(settings.DISCOURSE_SSO_SECRET, encoding='utf-8')  # must not be unicode
-#     h = hmac.new(key, payload, digestmod=hashlib.sha256)
-#     this_signature = h.hexdigest()
-
-#     if not hmac.compare_digest(this_signature, signature):
-#         raise Exception('Invalid payload. Please contact support if this problem persists.')
-
-#     # Build the return payload
-#     qs = parse.parse_qs(decoded)
-#     params = {
-#         'nonce': qs['nonce'][0],
-#         'email': request.user.member.email,
-#         'external_id': request.user.id,
-#         'username': '%s.%s' % (request.user.member.first_name.lower(), request.user.member.last_name.lower()),
-#         'name': request.user.member.get_name(),
-#     }
-
-#     return_payload = base64.encodebytes(bytes(parse.urlencode(params), 'utf-8'))
-#     h = hmac.new(key, return_payload, digestmod=hashlib.sha256)
-#     query_string = parse.urlencode({'sso': return_payload, 'sig': h.hexdigest()})
-
-#     # Redirect back to Discourse
-#     url = '%s/session/sso_login' % settings.DISCOURSE_BASE_URL
-#     return HttpResponseRedirect('%s?%s' % (url, query_string))
+@login_required
+def profile(request):
+    success = False
+    member = request.user.member
+    if request.method == 'POST':
+        memberform = MemberProfileForm(request.POST, instance=member)
+        if memberform.is_valid():
+            # set all fields of user
+            member.first_name = memberform.cleaned_data['first_name']
+            member.last_name = memberform.cleaned_data['last_name']
+            member.email = memberform.cleaned_data['email']
+            member.addr_street = memberform.cleaned_data['addr_street']
+            member.addr_zipcode = memberform.cleaned_data['addr_zipcode']
+            member.addr_location = memberform.cleaned_data['addr_location']
+            member.phone = memberform.cleaned_data['phone']
+            member.mobile_phone = memberform.cleaned_data['mobile_phone']
+            member.iban = memberform.cleaned_data['iban']
+            member.reachable_by_email = memberform.cleaned_data['reachable_by_email']
+            member.save()
+            success = True
+    else:
+        memberform = MemberProfileForm(instance=member)
+    renderdict = get_menu_dict(request)
+    renderdict.update({
+        'memberform': memberform,
+        'success': success,
+        'member': member,
+        'menu': {'personalInfo': 'active'},
+    })
+    return render(request, 'profile.html', renderdict)
