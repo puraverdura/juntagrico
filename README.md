@@ -14,14 +14,15 @@ On any environment install Python 3, and add it to your path
 
 ### Installing requirements
 
-    sudo easy_install pip
     sudo pip install virtualenv
-    virtualenv --distribute venv
+    sudo apt install libpq-dev (see: https://stackoverflow.com/questions/11618898/pg-config-executable-not-found)
+    virtualenv venv
     source ./venv/bin/activate
     pip install --upgrade -r requirements.txt
 
 ### Setup DB
 
+    chmod +x ./manage.py
     ./manage.py migrate
     
 ### Setup Admin User

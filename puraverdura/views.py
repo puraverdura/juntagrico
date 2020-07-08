@@ -153,7 +153,7 @@ def amount_overview(request):
 
 
 @permission_required('juntagrico.can_filter_members')
-def filters(request):
+def filters_emails(request):
     members = MemberDao.active_members_with_assignments_count()
     renderdict = get_menu_dict(request)
     renderdict.update({
