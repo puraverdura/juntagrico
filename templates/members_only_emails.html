@@ -65,14 +65,9 @@
             <tbody>
                 {% for member in members %}
                     <tr>
+                    	{% if member.reachable_by_email %}
                         <td>
-                            {% if operation_group %}
-                            <a href="/impersonate/{{ member.user.id }}" target="__blank">
-                            {% endif %}
-                                {{ member.first_name }} {{ member.last_name }}
-                            {% if operation_group %}
-                            </a>
-                            {% endif %}
+                            {{ member.first_name }} {{ member.last_name }}
                         </td>
                         <td>
                             {% for area in member.areas.all %}
@@ -91,6 +86,7 @@
                                 -
                             {% endif %}
                         </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
