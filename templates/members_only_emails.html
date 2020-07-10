@@ -64,8 +64,8 @@
             </tfoot>
             <tbody>
                 {% for member in members %}
+                	{% if member.reachable_by_email %}
                     <tr>
-                    	{% if member.reachable_by_email %}
                         <td>
                             {{ member.first_name }} {{ member.last_name }}
                         </td>
@@ -85,9 +85,9 @@
                             {% else %}
                                 -
                             {% endif %}
-                        </td>
-                        {% endif %}
+                        </td> 
                     </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>
