@@ -152,7 +152,7 @@ def amount_overview(request):
     return render_to_pdf_http('exports/amount_overview.html', generate_pdf_dict(), 'amount_overview.pdf')
 
 
-@permission_required('juntagrico.can_filter_members')
+#@permission_required('juntagrico.can_filter_members')
 def filters_emails(request):
     members = MemberDao.active_members_with_assignments_count()
     renderdict = get_menu_dict(request)
