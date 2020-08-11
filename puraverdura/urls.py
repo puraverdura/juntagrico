@@ -31,7 +31,7 @@ urlpatterns = [
     url('stats/', puraverdura.stats),
 
     # pdf (override)
-    # url('my/pdf/depotlist', puraverdura.depot_list),
+    # path('my/pdf/depotlist/', puraverdura.depot_list, name='depot_list'),
     # url('my/pdf/depotoverview', puraverdura.depot_overview),
     # url('my/pdf/amountoverview', puraverdura.amount_overview),
 
