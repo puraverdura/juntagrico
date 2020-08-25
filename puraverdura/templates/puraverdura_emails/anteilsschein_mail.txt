@@ -15,7 +15,7 @@
 {% blocktrans with sid=share.id %}Du hast bei {{ v_d_enriched_organisation }} 1 {{ v_share }} erworben.
 {% endblocktrans %}
 
-{% blocktrans %}Sobald du den Betrag von {{ c_currency }} {{ c_share_price }} auf das folgende Konto überwiesen hast, bist Du offiziell Mitglied bei {{ v_d_enriched_organisation }}. Damit bist Du berechtigt einen Ernteanteil zu beziehen. 
+{% blocktrans %}Sobald du den Betrag von {{ c_currency }} {{ c_share_price }} auf das folgende Konto überwiesen hast, bist Du offizielles Genossenschaftsmitglied bei {{ v_d_enriched_organisation }}. Damit bist Du berechtigt einen Ernteanteil zu beziehen. 
 Bis der Ernteanteil bezahlt ist wirst du auf die Warteliste gesetzt. Mehr informationen dazu im Abschnitt "Ernteanteil" auf unserer Mitgliederplattform: https://login.puraverdura.ch {% endblocktrans %}
 
 

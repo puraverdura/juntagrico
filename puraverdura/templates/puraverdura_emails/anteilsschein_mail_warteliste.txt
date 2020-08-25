@@ -15,10 +15,23 @@
 {% blocktrans with sid=share.id %}Du hast bei {{ v_d_enriched_organisation }} 1 {{ v_share }} erworben.
 {% endblocktrans %}
 
-{% blocktrans %}Du bist zurzeit auf der Warteliste bis zu unserer Generalversammlung (GV) am 28. Mai 2020. Bis dann bitten wir dich, das Geld noch nicht zu überweisen. Nach der GV wirst du wieder von uns hören. Dann werden wir dich weiter über Anteilsschein und Ernteanteil informieren.
+{% blocktrans %}Du bist zurzeit auf der Warteliste bis zum Start unseres neuen Betriebsjahres am 1. April 2021. Du kannst aber schon jetzt deinen Anteilsschein erwerben! Sobald du den Betrag von {{ c_currency }} {{ c_share_price }} auf das folgende Konto überwiesen hast, bist Du offizielles Genossenschaftsmitglied bei {{ v_d_enriched_organisation }}.
 
-Wir danken dir für deine Geduld!
+
 {% endblocktrans %}
+
+{% blocktrans with sid=share.id %}Wichtig: Bitte gib in den Zahlungsinformationen die Anteilschein-Nummer {{ sid }} und die Emailadresse des Halters / der Halterin an. Letzteres ist vor allem wichtig, wenn du diesen Anteilschein für jemand anderen bezahlst.
+{% endblocktrans %}
+
+Konto:
+
+    {{ c_addr.name }}   
+    {{ c_addr.zip }} {{ c_addr.city }}
+    {{ c_bank.NAME }}
+    {% trans "Postkonto-Nummer" %}: {{ c_bank.PC }}
+    {% trans "IBAN" %}: {{ c_bank.IBAN }}
+    {% trans "BIC" %}: {{ c_bank.BIC }}
+
 
 {% blocktrans trimmed %}
 Die {{ c_organisation_name }}-Betriebsgruppe
