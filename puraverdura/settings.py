@@ -184,8 +184,8 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "",
             "BIC" : "ABSOCH22XXX",
             "NAME" : "ABS",
             "ESR" : ""}
-INFO_EMAIL = "mitglieder@puraverdura.ch"
-# INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
+#INFO_EMAIL = "mitglieder@puraverdura.ch"
+INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
 SERVER_URL = "www.puraverdura.ch"
 ADMINPORTAL_NAME = "Mitgliederplattform Pura Verdura"
 ADMINPORTAL_SERVER_URL = "login.puraverdura.ch"
