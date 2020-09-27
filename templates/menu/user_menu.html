@@ -58,6 +58,11 @@
             {% trans "Mitglieder E-Mails" %}
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'tutorials' %}">
+            {% trans "Infos und Anleitungen" %}
+        </a>
+    </li>
     {% for user_menu in user_menus %}
         {% include user_menu %}
     {% endfor %}

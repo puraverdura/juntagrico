@@ -161,6 +161,13 @@ def filters_emails(request):
     })
     return render(request, 'members_only_emails.html', renderdict)
 
+# tutorial webpage
+@login_required
+def tutorials(request):
+    renderdict = get_menu_dict(request)
+    return render(request, 'tutorials.html', renderdict)
+
+
 @staff_member_required
 def stats(request):
     activity_area = ActivityArea.objects.filter(pk=request.GET.get('activity_area', None)).first()

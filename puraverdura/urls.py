@@ -38,6 +38,9 @@ urlpatterns = [
     # member email list
     path('my/filters_emails/', puraverdura.filters_emails, name='filters_emails'),
 
+    # tutorial section
+    path('my/tutorials/', puraverdura.tutorials, name='tutorials'),
+
     # override profile (trailing forward slach is important)
     path('my/profile/', puraverdura.profile, name='profile'),
 
