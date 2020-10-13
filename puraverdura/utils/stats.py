@@ -34,6 +34,18 @@ def members_with_assignments(start_date, end_date, activty_area=None, members=No
     )).filter(assignments__gt=0)
 
 
+
+def members_with_assignments_no_filter(start_date, end_date, activty_area=None, members=None):
+    members = members or MemberDao.all_members().filter(inactive=False)
+    return members.annotate(assignments=Sum(
+        'assignment__amount',
+        filter=Q(assignment__job__time__range=(start_date, end_date)) & Q(assignment__job__in=
+                                                                          jobs_in_activity_area(activty_area))
+    ))
+
+
+
+
 def assignments_by_subscription(start_date, end_date, activty_area=None):
     subscriptions_list = []
     for subscription in SubscriptionDao.all_active_subscritions().annotate(totalsize=Sum('types__size__units')):

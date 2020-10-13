@@ -1,6 +1,7 @@
 # import vobject
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from juntagrico.dao.extrasubscriptioncategorydao import ExtraSubscriptionCategoryDao
 from juntagrico.dao.memberdao import MemberDao
@@ -35,7 +36,7 @@ from django.utils.translation import gettext_lazy as _
 from openpyxl.utils import get_column_letter
 
 from puraverdura.utils.stats import assignments_by_subscription, assignments_by_day, slots_by_day, \
-    members_with_assignments
+    members_with_assignments, members_with_assignments_no_filter
 from puraverdura.utils.utils import date_from_get, get_delivery_dates_of_month
 
 from puraverdura.forms import MemberProfileForm
@@ -184,9 +185,122 @@ def stats(request):
     response['Content-Disposition'] = 'attachment; filename=' + filename
     wb = Workbook()
 
+
+    # Sheet 5: master sheet
+    ws5 = wb.active
+    ws5.title = "master"
+
+    # header
+    ws5.cell(1, 1, u"{}".format('Nr.Anteilschein'))
+    ws5.column_dimensions['A'].width = 17
+
+    ws5.cell(1, 2, u"{}".format(_('Mitgliedernummer')))
+    ws5.column_dimensions['B'].width = 17
+
+    ws5.cell(1, 3, u"{}".format('Vorname'))
+    ws5.column_dimensions['C'].width = 17
+
+    ws5.cell(1, 4, u"{}".format(_('Name')))
+    ws5.column_dimensions['D'].width = 17
+
+    ws5.cell(1, 5, u"{}".format(_('Strasse')))
+    ws5.column_dimensions['E'].width = 17
+
+    ws5.cell(1, 6, u"{}".format('PLZ'))
+    ws5.column_dimensions['F'].width = 17
+
+    ws5.cell(1, 7, u"{}".format(_('Mail')))
+    ws5.column_dimensions['G'].width = 40
+
+    ws5.cell(1, 8, u"{}".format('Telefon'))
+    ws5.column_dimensions['H'].width = 17
+
+    ws5.cell(1, 9, u"{}".format(_('Depot')))
+    ws5.column_dimensions['I'].width = 17
+
+    ws5.cell(1, 10, u"{}".format(_('Arbeitseinsatz')))
+    ws5.column_dimensions['J'].width = 17
+
+    ws5.cell(1, 11, u"{}".format(_('Arbeitseinsatz Kernbereich')))
+    ws5.column_dimensions['K'].width = 40
+
+    ws5.cell(1, 12, u"{}".format('Mit-Abo-Mail'))
+    ws5.column_dimensions['L'].width = 40
+
+    ws5.cell(1, 13, u"{}".format(_('Anmeldedatum')))
+    ws5.column_dimensions['M'].width = 40
+
+    ws5.cell(1, 14, u"{}".format(_('Anzahl Anteilschein')))
+    ws5.column_dimensions['N'].width = 40
+
+    ws5.cell(1, 15, u"{}".format(_('Anzahl Ernteanteil')))
+    ws5.column_dimensions['O'].width = 40
+
+    ws5.cell(1, 16, u"{}".format('Datum Einzahlung Anteilschein'))
+    ws5.column_dimensions['P'].width = 40
+
+    ws5.cell(1, 17, u"{}".format(_('Anteilschein ausgestellt')))
+    ws5.column_dimensions['Q'].width = 40
+
+    ws5.cell(1, 18, u"{}".format(_('Datum Einzahlung Ernteanteil')))
+    ws5.column_dimensions['R'].width = 40
+
+    # data
+    members = members_with_assignments_no_filter(start_date, end_date)
+    #members = MemberDao.all_members().filter(inactive=False)
+
+    #users = User.objects.all()
+    #print(users)
+
+    add_rows = 0
+    for row, member in enumerate(members, 2):
+        curr_user = member.user
+        #print(dir(curr_user))
+        curr_shares = member.active_shares
+        for i, share in enumerate(curr_shares):
+            curr_row = add_rows+row+i
+            ws5.cell(curr_row, 1, share.id)
+            ws5.cell(curr_row, 2, member.id)
+            ws5.cell(curr_row, 3, member.first_name)
+            ws5.cell(curr_row, 4, member.last_name)
+            ws5.cell(curr_row, 5, member.addr_street)
+            ws5.cell(curr_row, 6, member.addr_zipcode)
+            ws5.cell(curr_row, 7, member.email)
+            ws5.cell(curr_row, 8, member.phone)
+            
+            sub = member.subscription
+            depot = sub.depot.name if sub is not None else '-'
+            
+            ws5.cell(curr_row, 9, depot)
+
+            assignments = member.assignments if member.assignments is not None else '-'
+
+            ws5.cell(curr_row, 10, assignments)
+            ws5.cell(curr_row, 11, 'N.A.')
+
+            email_string = '-'
+            if sub is not None and member.assignments is not None:
+                co_members = sub.other_recipients()
+                email_list = [m.email for m in co_members]
+                email_string = ', '.join(email_list)
+
+            ws5.cell(curr_row, 12, email_string)
+            
+            print(curr_user.date_joined.date())
+
+            ws5.cell(curr_row, 13, curr_user.date_joined.date())
+
+            ws5.cell(curr_row, 14, 'N.A.')
+            ws5.cell(curr_row, 15, 'N.A.')
+            ws5.cell(curr_row, 16, share.paid_date)
+            ws5.cell(curr_row, 17, share.issue_date)
+            ws5.cell(curr_row, 18, 'N.A.')
+
+        add_rows = add_rows + len(curr_shares)-1
+
+
     # Sheet 1: assignments by subscription
-    ws1 = wb.active
-    ws1.title = "assignments by subscription"
+    ws1 = wb.create_sheet(title="assignments by subscription")
 
     # header
     ws1.cell(1, 1, u"{}".format(Config.vocabulary('member_pl')))
@@ -244,6 +358,8 @@ def stats(request):
     for row, member in enumerate(members, 2):
         ws4.cell(row, 1, u"{}".format(member))
         ws4.cell(row, 2, member.assignments)
+
+
 
     wb.save(response)
     return response
