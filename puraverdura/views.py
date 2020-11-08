@@ -191,58 +191,59 @@ def stats(request):
     ws5.title = "master"
 
     # header
-    ws5.cell(1, 1, u"{}".format('Nr.Anteilschein'))
-    ws5.column_dimensions['A'].width = 17
-
-    ws5.cell(1, 2, u"{}".format(_('Mitgliedernummer')))
+    ws5.cell(1, 1, u"{}".format(_('Mitgliedernummer')))
     ws5.column_dimensions['B'].width = 17
 
-    ws5.cell(1, 3, u"{}".format('Vorname'))
+    ws5.cell(1, 2, u"{}".format('Vorname'))
     ws5.column_dimensions['C'].width = 17
 
-    ws5.cell(1, 4, u"{}".format(_('Name')))
+    ws5.cell(1, 3, u"{}".format(_('Name')))
     ws5.column_dimensions['D'].width = 17
 
-    ws5.cell(1, 5, u"{}".format(_('Strasse')))
+    ws5.cell(1, 4, u"{}".format(_('Strasse')))
     ws5.column_dimensions['E'].width = 17
 
-    ws5.cell(1, 6, u"{}".format('PLZ'))
+    ws5.cell(1, 5, u"{}".format('PLZ'))
     ws5.column_dimensions['F'].width = 17
 
-    ws5.cell(1, 7, u"{}".format(_('Mail')))
+    ws5.cell(1, 6, u"{}".format(_('Mail')))
     ws5.column_dimensions['G'].width = 40
 
-    ws5.cell(1, 8, u"{}".format('Telefon'))
+    ws5.cell(1, 7, u"{}".format('Telefon'))
     ws5.column_dimensions['H'].width = 17
+
+    ws5.cell(1, 8, u"{}".format(_('Anmeldedatum')))
+    ws5.column_dimensions['M'].width = 40
 
     ws5.cell(1, 9, u"{}".format(_('Depot')))
     ws5.column_dimensions['I'].width = 17
 
-    ws5.cell(1, 10, u"{}".format(_('Arbeitseinsatz')))
+    ws5.cell(1, 10, u"{}".format(_('Arbeitseinsätze')))
     ws5.column_dimensions['J'].width = 17
 
-    ws5.cell(1, 11, u"{}".format(_('Arbeitseinsatz Kernbereich')))
+    ws5.cell(1, 11, u"{}".format(_('Arbeitseinsätze Kernbereich')))
     ws5.column_dimensions['K'].width = 40
 
-    ws5.cell(1, 12, u"{}".format('Mit-Abo-Mail'))
-    ws5.column_dimensions['L'].width = 40
+    ws5.cell(1, 12, u"{}".format('Mit-Abo-Mails'))
+    ws5.column_dimensions['L'].width = 80
 
-    ws5.cell(1, 13, u"{}".format(_('Anmeldedatum')))
-    ws5.column_dimensions['M'].width = 40
-
-    ws5.cell(1, 14, u"{}".format(_('Anzahl Anteilschein')))
+    ws5.cell(1, 13, u"{}".format(_('Anzahl Anteilscheine')))
     ws5.column_dimensions['N'].width = 40
 
-    ws5.cell(1, 15, u"{}".format(_('Anzahl Ernteanteil')))
-    ws5.column_dimensions['O'].width = 40
+    ws5.cell(1, 14, u"{}".format('Nr.Anteilschein(e)'))
+    ws5.column_dimensions['A'].width = 17
 
-    ws5.cell(1, 16, u"{}".format('Datum Einzahlung Anteilschein'))
+    ws5.cell(1, 15, u"{}".format('Datum Einzahlung Anteilschein(e)'))
     ws5.column_dimensions['P'].width = 40
 
-    ws5.cell(1, 17, u"{}".format(_('Anteilschein ausgestellt')))
+    ws5.cell(1, 16, u"{}".format(('Anteilschein(e) ausgestellt')))
     ws5.column_dimensions['Q'].width = 40
 
-    ws5.cell(1, 18, u"{}".format(_('Datum Einzahlung Ernteanteil')))
+    ws5.cell(1, 17, u"{}".format(('Anzahl Ernteanteile')))
+    ws5.column_dimensions['O'].width = 40
+
+    #ws5.cell(1, 18, u"{}".format(('Datum Einzahlung Ernteanteil(e)')))
+    ws5.cell(1, 18, u"{}".format(('Grösse Ernteanteil(e)')))
     ws5.column_dimensions['R'].width = 40
 
     # data
@@ -252,51 +253,65 @@ def stats(request):
     #users = User.objects.all()
     #print(users)
 
-    add_rows = 0
-    for row, member in enumerate(members, 2):
+    for curr_row, member in enumerate(members, 2):
         curr_user = member.user
-        #print(dir(curr_user))
-        curr_shares = member.active_shares
-        for i, share in enumerate(curr_shares):
-            curr_row = add_rows+row+i
-            ws5.cell(curr_row, 1, share.id)
-            ws5.cell(curr_row, 2, member.id)
-            ws5.cell(curr_row, 3, member.first_name)
-            ws5.cell(curr_row, 4, member.last_name)
-            ws5.cell(curr_row, 5, member.addr_street)
-            ws5.cell(curr_row, 6, member.addr_zipcode)
-            ws5.cell(curr_row, 7, member.email)
-            ws5.cell(curr_row, 8, member.phone)
-            
-            sub = member.subscription
-            depot = sub.depot.name if sub is not None else '-'
-            
-            ws5.cell(curr_row, 9, depot)
+        
+        ws5.cell(curr_row, 1, member.id)
+        ws5.cell(curr_row, 2, member.first_name)
+        ws5.cell(curr_row, 3, member.last_name)
+        ws5.cell(curr_row, 4, member.addr_street)
+        ws5.cell(curr_row, 5, member.addr_zipcode)
+        ws5.cell(curr_row, 6, member.email)
+        ws5.cell(curr_row, 7, member.phone)
+        ws5.cell(curr_row, 8, curr_user.date_joined.date())
 
-            assignments = member.assignments if member.assignments is not None else '-'
+        sub = member.subscription
+        depot = sub.depot.name if sub is not None else '-'
+        ws5.cell(curr_row, 9, depot)
 
-            ws5.cell(curr_row, 10, assignments)
-            ws5.cell(curr_row, 11, 'N.A.')
+        assignments = member.assignments if member.assignments is not None else '-'
+        ws5.cell(curr_row, 10, assignments)
+        ws5.cell(curr_row, 11, 'N.A.')
 
-            email_string = '-'
-            if sub is not None and member.assignments is not None:
-                co_members = sub.other_recipients()
-                email_list = [m.email for m in co_members]
+        email_string = '-'
+        if sub is not None:
+            co_members = sub.other_recipients()
+            email_list = [m.email for m in co_members]
+            if email_list: 
                 email_string = ', '.join(email_list)
+        ws5.cell(curr_row, 12, email_string)
 
-            ws5.cell(curr_row, 12, email_string)
-            
-            print(curr_user.date_joined.date())
+        curr_shares = member.active_shares
+        num_shares = len(curr_shares)
+        ws5.cell(curr_row, 13, num_shares)
 
-            ws5.cell(curr_row, 13, curr_user.date_joined.date())
+        share_id_string = '-'
+        share_ids = [str(s.id) for s in curr_shares]
+        if share_ids:
+            share_id_string = ', '.join(share_ids)
+        ws5.cell(curr_row, 14, share_id_string)
 
-            ws5.cell(curr_row, 14, 'N.A.')
-            ws5.cell(curr_row, 15, 'N.A.')
-            ws5.cell(curr_row, 16, share.paid_date)
-            ws5.cell(curr_row, 17, share.issue_date)
-            ws5.cell(curr_row, 18, 'N.A.')
+        share_paid_date_string = '-'
+        share_paid_dates = [str(s.paid_date) for s in curr_shares]
+        if share_paid_dates:
+            share_paid_date_string = ', '.join(share_paid_dates)
+        ws5.cell(curr_row, 15, share_paid_date_string)
 
-        add_rows = add_rows + len(curr_shares)-1
+        share_issue_date_string = '-'
+        share_issue_dates = [str(s.issue_date) for s in curr_shares]
+        if share_issue_dates:
+            share_issue_date_string = ', '.join(share_issue_dates)
+        ws5.cell(curr_row, 16, share_issue_date_string)
+        
+        amount_subs_string = '-'
+        size_subs_string = '-'
+        if sub is not None:
+            amount_subs_string = str(sub.subscription_amount(0))    
+            size_subs_string = str(sub.size_name)    
+        ws5.cell(curr_row, 17, amount_subs_string)
+        ws5.cell(curr_row, 18, size_subs_string)
+
+       
 
 
     # Sheet 1: assignments by subscription
