@@ -19,7 +19,7 @@ import juntagrico
 
 # Custom Views of Pura Verdura
 from puraverdura import views as puraverdura
-from puraverdura import views_admin as puraverdura_admin
+#from puraverdura import views_admin as puraverdura_admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -44,7 +44,7 @@ urlpatterns = [
     # override profile (trailing forward slach is important)
     path('my/profile/', puraverdura.profile, name='profile'),
 
-    path('my/mails/send/depot/', puraverdura_admin.send_email_depot, name='mail-depot-send'),
-    path('my/mails/send/area/', puraverdura_admin.send_email_area, name='mail-area-send'),
-    path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),  
+    #path('my/mails/send/depot/', puraverdura_admin.send_email_depot, name='mail-depot-send'),
+    #path('my/mails/send/area/', puraverdura_admin.send_email_area, name='mail-area-send'),
+    #path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),  
     ]
