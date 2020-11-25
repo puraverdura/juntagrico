@@ -1,5 +1,5 @@
 juntagrico==1.2.3
-gunicorn==19.7.1
-psycopg2>2.5.1
+gunicorn==20.0.4
+psycopg2==2.8.4
 
 openpyxl>=3.0.3
