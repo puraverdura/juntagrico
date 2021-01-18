@@ -1,0 +1,4 @@
+Follow instructions in readme.
+
+After: ./manage.py generate_testdata
+Run: ./manage.py create_member_for_superusers
