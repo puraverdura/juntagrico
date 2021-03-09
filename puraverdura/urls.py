@@ -49,5 +49,5 @@ urlpatterns = [
     #path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),  
 
 
-    path('my/export/subscriptions/', puraverdura_admin.excel_export_subscriptions, name='export-subscriptions'),
+    # path('my/export/subscriptions/', puraverdura_admin.excel_export_subscriptions, name='export-subscriptions'),
     ]
