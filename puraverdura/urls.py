@@ -19,7 +19,7 @@ import juntagrico
 
 # Custom Views of Pura Verdura
 from puraverdura import views as puraverdura
-from puraverdura import views_admin as puraverdura_admin
+#from puraverdura import views_admin as puraverdura_admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
