@@ -17,13 +17,9 @@
 
 {% blocktrans %}Sobald du den Betrag von {{ c_currency }} {{ c_share_price }} auf das folgende Konto überwiesen hast, bist Du offizielles Genossenschaftsmitglied bei {{ v_d_enriched_organisation }}.
 
-Damit bist Du berechtigt einen Ernteanteil zu beziehen sobald neue Ernteanteile frei werden (voraussichtlich im März 2021).
-
-
+Damit bist Du berechtigt einen Ernteanteil zu beziehen sobald neue Ernteanteile frei werden.
 {% endblocktrans %}
 
-{% blocktrans with sid=share.id %}Wichtig: Bitte gib in den Zahlungsinformationen die Emailadresse des Halters / der Halterin an. Dies ist vor allem wichtig, wenn du diesen Anteilschein für jemand anderen bezahlst.
-{% endblocktrans %}
 
 Konto:
 
