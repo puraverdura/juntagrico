@@ -8,7 +8,7 @@
 {% config "organisation_name" as c_organisation_name %}
 {% enriched_organisation "D" as v_d_enriched_organisation %}
 {% vocabulary "member_type" as v_member_type %}
-{% vocabulary "subscription" as v_subscription %}
+
 {% blocktrans %}Vielen herzlichen Dank für Deine Anmeldung zur Mitgliedschaft bei {{ v_d_enriched_organisation }}.{% endblocktrans %}
 
 Jedes Mitglied der Kooperative kauft mindestens einen Anteilschein. Somit bist du Miteigentümer_In des Gemüsebetriebs und kannst bei vielen Entscheidungen mitbestimmen und wir können gemeinsam die Infrastruktur für den Gemüseanbau finanzieren. Bei einem Austritt aus der Genossenschaft bekommst du deinen Anteilschein zurück erstattet.
@@ -23,11 +23,11 @@ Deine Login-Informationen
 
 Um dich einzuloggen, kannst du folgende Daten benutzen{% endblocktrans %}:
 
-{% trans "Email" %}: {{ username }}
+{% trans "Email" %}: {{ member.email }}
 {% trans "Passwort" %}: {{ password }}
 
 {% blocktrans %}Klicke bitte auf den folgenden Bestätigungslink, um deine Emailadresse zu bestätigen und damit wir dich als {{ v_member_type }} freischalten können:
-{% endblocktrans %} {{ serverurl }}/my/confirm/{{ onetime_code }}
+{% endblocktrans %} {{ serverurl }}{% url 'confirm' member.get_hash %}
 
 {% trans "Bitte setze dir hier gleich ein neues Passwort:" %} {{serverurl}}/my/password
 
