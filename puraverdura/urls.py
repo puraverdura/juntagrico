@@ -28,12 +28,7 @@ urlpatterns = [
     url(r'^impersonate/', include('impersonate.urls')),
 
     # stats
-    url('stats/', puraverdura.stats),
-
-    # pdf (override)
-    # path('my/pdf/depotlist/', puraverdura.depot_list, name='depot_list'),
-    # url('my/pdf/depotoverview', puraverdura.depot_overview),
-    # url('my/pdf/amountoverview', puraverdura.amount_overview),
+    #url('stats/', puraverdura.stats),
 
     # member email list
     path('my/filters_emails/', puraverdura.filters_emails, name='filters_emails'),
@@ -42,12 +37,6 @@ urlpatterns = [
     path('my/tutorials/', puraverdura.tutorials, name='tutorials'),
 
     # override profile (trailing forward slach is important)
-    path('my/profile/', puraverdura.profile, name='profile'),
+    # path('my/profile/', puraverdura.profile, name='profile'),
 
-    #path('my/mails/send/depot/', puraverdura_admin.send_email_depot, name='mail-depot-send'),
-    #path('my/mails/send/area/', puraverdura_admin.send_email_area, name='mail-area-send'),
-    #path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),  
-
-
-    # path('my/export/subscriptions/', puraverdura_admin.excel_export_subscriptions, name='export-subscriptions'),
     ]
