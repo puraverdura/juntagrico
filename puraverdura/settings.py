@@ -215,7 +215,7 @@ DEPOT_LIST_GENERATION_DAYS = [1,2,3,4,5,6,7]
 BILLING = False
 BUSINESS_YEAR_START = {"day":1, "month":4}
 BUSINESS_YEAR_CANCELATION_MONTH = 12
-MEMBERSHIP_END_MONTH = 6
+MEMBERSHIP_END_MONTH = 12
 IMAGES = {'status_100': '/static/img/status_100_cropped.png',
             'status_75': '/static/img/status_75_cropped.png',
             'status_50': '/static/img/status_50_cropped.png',
