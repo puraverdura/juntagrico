@@ -42,7 +42,7 @@ More complex
     
 ### Run the server
 
-    ./manage.py runserver
+    ./manage.py runserver --insecure
 
 ## Windows
 

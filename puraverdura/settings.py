@@ -8,7 +8,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
 SECRET_KEY = 'fake-key'
@@ -133,9 +132,8 @@ if DEBUG is True:
             whitelist_email_from_env(key)
             
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 IMPERSONATE = {
     'REDIRECT_URL': '/my/profile',
