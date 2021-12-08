@@ -45,19 +45,10 @@ from juntagrico.view_decorators import highlighted_menu
 #@permission_required('juntagrico.can_filter_members')
 def filters_emails(request):
     members = MemberDao.active_members()
-
-    renderdict = get_menu_dict(request)
-    renderdict.update({
+    renderdict = {
         'members': members
-    })
-    
+    }    
     return render(request, 'members_only_emails.html', renderdict)
-
-# tutorial webpage
-# @login_required
-# def tutorials(request):
-#     renderdict = get_menu_dict(request)
-#     return render(request, 'tutorials.html', renderdict)
 
 @login_required
 #@highlighted_menu('contact')
