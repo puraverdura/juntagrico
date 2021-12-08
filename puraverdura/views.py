@@ -38,6 +38,7 @@ from puraverdura.utils.stats import assignments_by_subscription, assignments_by_
 from puraverdura.utils.utils import date_from_get, get_delivery_dates_of_month
 
 from puraverdura.forms import MemberProfileForm
+from juntagrico.view_decorators import highlighted_menu
 
 
 
@@ -53,10 +54,19 @@ def filters_emails(request):
     return render(request, 'members_only_emails.html', renderdict)
 
 # tutorial webpage
+# @login_required
+# def tutorials(request):
+#     renderdict = get_menu_dict(request)
+#     return render(request, 'tutorials.html', renderdict)
+
 @login_required
+#@highlighted_menu('contact')
 def tutorials(request):
-    renderdict = get_menu_dict(request)
-    return render(request, 'tutorials.html', renderdict)
+    '''
+    tutorials
+    '''
+    return render(request, 'tutorials.html', {})
+
 
 
 # @login_required
