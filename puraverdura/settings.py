@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
+#SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
 SECRET_KEY = 'fake-key'
 #DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
 DEBUG = True
