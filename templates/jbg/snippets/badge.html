@@ -1,0 +1,29 @@
+{% load i18n %}
+<div class="col-md-4">
+    {% if badge.id > 1 %}
+        <div class="jbg-badge">
+            <h5 class="jbg-badge-title">{{ badge.name }}</h5>
+            <p>{{ badge.description }}</p>
+            {% if badge.self_assignable %}
+                {% if request.user.member in badge.members.all %}
+                    <p><a href="{% url 'jbg-remove-badge' badge.id %}">{% translate "entfernen" %}</a></p>
+                {% else %}
+                    <p><a href="{% url 'jbg-add-badge' badge.id %}">{% translate "hinzufügen" %}</a></p>
+                {% endif %}
+            {% endif %}
+        </div>
+
+    {% else %}
+        <div class="jbg-badge_1">
+            <h5 class="jbg-badge-title">{{ badge.name }}</h5>
+            <p>{{ badge.description }}</p>
+            {% if badge.self_assignable %}
+                {% if request.user.member in badge.members.all %}
+                    <p><a href="{% url 'jbg-remove-badge' badge.id %}">{% translate "entfernen" %}</a></p>
+                {% else %}
+                    <p><a href="{% url 'jbg-add-badge' badge.id %}">{% translate "hinzufügen" %}</a></p>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
