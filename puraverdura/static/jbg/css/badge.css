@@ -3,6 +3,9 @@
     border-radius: 6px;
     padding: 0 1em;
     margin: 1em 0;
+    background-image: url('../img/transport_angel.png');
+    background-position: right;
+    background-repeat: no-repeat;
 }
 
 .jbg-badge .jbg-badge-title {
