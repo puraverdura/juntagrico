@@ -1,10 +1,13 @@
 from datetime import date
 
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.db.models import Count, Sum
 from django.utils import timezone
 from django.utils.translation import gettext as _
+from django.conf import settings
 
 from juntagrico.config import Config
 from juntagrico.util.pdf import render_to_pdf_http
@@ -22,6 +25,9 @@ def share_certificate(request):
     
     share_id = [str(id['id']) for id in member.active_shares_for_date(date=shares_date).values('id')]
     share_id_str = ', '.join(share_id)
+
+    logo_url = os.path.join(settings.STATIC_ROOT, 'img', 'Pura-Verdura-logo.png')
+    print(logo_url)
     
     shares_total = 0
     for share in shares:
@@ -32,7 +38,8 @@ def share_certificate(request):
         'shares_date': shares_date,
         'shares': shares,
         'shares_total': shares_total,
-        'share_ids':share_id_str
+        'share_ids': share_id_str,
+        'logo_url': logo_url
     }
     return render_to_pdf_http('exports/share_certificate.html', renderdict, _('Bescheinigung') + str(year) + '.pdf')
 
