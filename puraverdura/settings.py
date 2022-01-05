@@ -179,12 +179,12 @@ ORGANISATION_NAME = "Pura Verdura"
 ORGANISATION_NAME_CONFIG = {"type" : "",
     "gender" : ""}
 ORGANISATION_LONG_NAME = "Pura Verdura"
-ORGANISATION_ADDRESS = {"name":"Pura Verdura", 
+ORGANISATION_ADDRESS = {"name":"Genossenschaft Pura Verdura", 
             "street" : "Drusbergstrasse",
             "number" : "113",
             "zip" : "8053",
             "city" : "Zürich",
-            "extra" : "CH"}
+            "extra" : ""}
 ORGANISATION_PHONE =''
 ORGANISATION_BANK_CONNECTION = {"PC" : "46-110-7",
             "IBAN" : "CH38 0839 0036 8201 1000 0",

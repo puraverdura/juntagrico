@@ -19,6 +19,7 @@ import juntagrico
 
 # Custom Views of Pura Verdura
 from puraverdura import views as puraverdura
+from puraverdura import views_subscription as puraverdura_subscription
 #from puraverdura import views_admin as puraverdura_admin
 
 urlpatterns = [
@@ -36,6 +37,9 @@ urlpatterns = [
 
     # tutorial section
     path('my/tutorials/', puraverdura.tutorials, name='tutorials'),
+
+    # override share certificate
+    path('my/share/certificate/', puraverdura_subscription.share_certificate, name='share-certificate'),
 
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),
