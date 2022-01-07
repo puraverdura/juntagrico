@@ -16,8 +16,8 @@
 {% endblocktrans %}
 
 {% blocktrans %}Sobald du den Betrag von {{ c_currency }} {{ c_share_price }} auf das folgende Konto überwiesen hast, bist Du offizielles Genossenschaftsmitglied bei {{ v_d_enriched_organisation }}. Damit bist Du berechtigt einen Ernteanteil zu beziehen. 
-Bis der Ernteanteil bezahlt ist wirst du auf die Warteliste gesetzt. Mehr informationen dazu im Abschnitt "Ernteanteil" auf unserer Mitgliederplattform: https://login.puraverdura.ch {% endblocktrans %}
-
+ Mehr informationen dazu im Abschnitt "Ernteanteil" auf unserer Mitgliederplattform: https://login.puraverdura.ch 
+{% endblocktrans %}
 
 
 Konto:
@@ -28,6 +28,7 @@ Konto:
     {% trans "Postkonto-Nummer" %}: {{ c_bank.PC }}
     {% trans "IBAN" %}: {{ c_bank.IBAN }}
     {% trans "BIC" %}: {{ c_bank.BIC }}
+    Zahlungszweck: Notiere hier deine E-Mail Adresse
 
 {% blocktrans trimmed %}
 Die {{ c_organisation_name }}-Betriebsgruppe
