@@ -23,11 +23,14 @@ def share_certificate(request):
     shares_date = date(year, 12, 31)
     shares = member.active_shares_for_date(date=shares_date).values('value').annotate(count=Count('value')).annotate(total=Sum('value')).order_by('value')
     
-    share_id = [str(id['id']) for id in member.active_shares_for_date(date=shares_date).values('id')]
+    share_id = [str(id['number']) for id in member.active_shares_for_date(date=shares_date).values('number').order_by('number')]
     share_id_str = ', '.join(share_id)
 
     logo_url = os.path.join(settings.STATIC_ROOT, 'img', 'Pura-Verdura-logo.png')
-    print(logo_url)
+    #print(logo_url)
+    #print(share_id_str)
+    #share_set = member.active_shares_for_date(date=shares_date)
+    #print(share_set[0].__dict__)
     
     shares_total = 0
     for share in shares:
