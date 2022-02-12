@@ -29,6 +29,7 @@ Konto:
     {% trans "Postkonto-Nummer" %}: {{ c_bank.PC }}
     {% trans "IBAN" %}: {{ c_bank.IBAN }}
     {% trans "BIC" %}: {{ c_bank.BIC }}
+    Zahlungszweck: Notiere hier deine E-Mail Adresse
 
 
 {% blocktrans trimmed %}
