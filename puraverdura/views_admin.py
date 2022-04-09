@@ -82,6 +82,6 @@ def send_email_intern(request, max_num_emails=2):
         
         print(admin_email)
         print(admin_message)
-        EmailSender.get_sender('[JUNTAGRICO] sent emails', admin_message, bcc=set(admin_email), from_email=sender).send()
+        EmailSender.get_sender('[JUNTAGRICO] sent emails', admin_message, bcc=[admin_email], from_email=sender).send()
 
     return redirect('mail-result', numsent=sent)
