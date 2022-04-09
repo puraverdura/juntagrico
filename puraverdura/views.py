@@ -1,48 +1,14 @@
-# import vobject
-
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User
-from django.utils.safestring import mark_safe
 from juntagrico.dao.memberdao import MemberDao
-from juntagrico.dao.subscriptiondao import SubscriptionDao
-from juntagrico.dao.subscriptionproductdao import SubscriptionProductDao
-from juntagrico.dao.subscriptiontypedao import SubscriptionTypeDao
-from juntagrico.entity.jobs import ActivityArea
-from openpyxl import Workbook
 
-import base64
-import hmac
-import hashlib
-from urllib import parse
-from django.conf import settings
-
-
-from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
-from juntagrico.models import Member, Subscription
-
-from juntagrico.dao.depotdao import DepotDao
-from juntagrico.dao.listmessagedao import ListMessageDao
-from juntagrico.dao.subscriptionsizedao import SubscriptionSizeDao
-from juntagrico.util.pdf import render_to_pdf_http
-from juntagrico.util.temporal import weekdays, start_of_business_year, end_of_business_year
-from juntagrico.config import Config
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from openpyxl.utils import get_column_letter
-
-from puraverdura.utils.stats import assignments_by_subscription, assignments_by_day, slots_by_day, \
-    members_with_assignments, members_with_assignments_no_filter
-from puraverdura.utils.utils import date_from_get, get_delivery_dates_of_month
-
-from puraverdura.forms import MemberProfileForm
-from juntagrico.view_decorators import highlighted_menu
 
 
 
 #@permission_required('juntagrico.can_filter_members')
+@login_required
 def filters_emails(request):
     members = MemberDao.active_members()
     renderdict = {
@@ -51,7 +17,6 @@ def filters_emails(request):
     return render(request, 'members_only_emails.html', renderdict)
 
 @login_required
-#@highlighted_menu('contact')
 def tutorials(request):
     '''
     tutorials
