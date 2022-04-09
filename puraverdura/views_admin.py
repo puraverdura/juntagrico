@@ -34,7 +34,7 @@ def send_email_job(request):
     return send_email_intern(request)
 
 
-def send_email_intern(request, max_num_emails=2):
+def send_email_intern(request, max_num_emails=50):
     sent = 0
     if request.method != 'POST':
         raise Http404
@@ -76,12 +76,13 @@ def send_email_intern(request, max_num_emails=2):
         sent = num_emails
         # Send Debug Email
         admin_email = getattr(settings, 'DEBUG_MAILER_ADMIN', None)
-        admin_message = ''
-        for em_list, t in zip(emails_subsets, timestamps):
-            admin_message = admin_message + str(t) + ': ' + str(em_list) + ',\n'
-        
-        print(admin_email)
-        print(admin_message)
-        EmailSender.get_sender('[JUNTAGRICO] sent emails', admin_message, bcc=[admin_email], from_email=sender).send()
+        if admin_email is not None:
+            admin_message = ''
+            for em_list, t in zip(emails_subsets, timestamps):
+                admin_message = admin_message + str(t) + ': ' + str(em_list) + ',\n'
+            
+            print(admin_email)
+            print(admin_message)
+            EmailSender.get_sender('[JUNTAGRICO] sent emails', admin_message, bcc=[admin_email], from_email=sender).send()
 
     return redirect('mail-result', numsent=sent)
