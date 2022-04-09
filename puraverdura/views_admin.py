@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import permission_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext as _
+from django.utils import timezone
 
 from juntagrico.dao.memberdao import MemberDao
 from juntagrico.mailer import append_attachements
@@ -61,7 +62,9 @@ def send_email_intern(request, max_num_emails=2):
 
     if num_emails > 0:
         emails_subsets = [list(emails)[i:i + max_num_emails] for i in range(0, num_emails, max_num_emails)]
+        timestamps = []
         for em in emails_subsets:
+            timestamps.append(timezone.now())
             formemails.internal(
                 request.POST.get('subject'),
                 request.POST.get('message'),
@@ -74,11 +77,11 @@ def send_email_intern(request, max_num_emails=2):
         # Send Debug Email
         admin_email = getattr(settings, 'DEBUG_MAILER_ADMIN', None)
         admin_message = ''
-        for em_list in emails_subsets:
-            admin_message = admin_message + str(em_list) + ',\n'
+        for em_list, t in zip(emails_subsets, timestamps):
+            admin_message = admin_message + str(t) + ': ' + str(em_list) + ',\n'
         
-        #print(admin_email)
-        #print(admin_message)
-        EmailSender.get_sender('[JUNTAGRICO] sent emails', admin_message, bcc=set(admin_email), from_email=sender)
+        print(admin_email)
+        print(admin_message)
+        EmailSender.get_sender('[JUNTAGRICO] sent emails', admin_message, bcc=set(admin_email), from_email=sender).send()
 
     return redirect('mail-result', numsent=sent)
