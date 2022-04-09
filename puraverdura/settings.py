@@ -88,7 +88,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-#TIME_ZONE = 'Europe/Zurich'
 
 DATE_INPUT_FORMATS =['%d.%m.%Y',]
 
@@ -117,9 +116,6 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
-
-#DEBUG_MAILER_ADMIN = os.environ.get('JUNTAGRICO_ADMIN_EMAIL')
-DEBUG_MAILER_ADMIN = 'it@puraverdura.ch'
  
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
