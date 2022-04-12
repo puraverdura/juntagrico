@@ -12,6 +12,7 @@ class Mailer:
             msg.send()
             return
 
+        msg.get_connection()
         plain_msg = copy.copy(msg)
         plain_msg.bcc = []
 
