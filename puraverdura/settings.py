@@ -117,9 +117,10 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
+#DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
+DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
 
-#DEBUG_MAILER_ADMIN = os.environ.get('JUNTAGRICO_ADMIN_EMAIL')
-DEBUG_MAILER_ADMIN = 'it@puraverdura.ch'
+DEFAULT_FROM_EMAIL = 'it@puraverdura.ch'
  
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
