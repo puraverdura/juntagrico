@@ -5,7 +5,7 @@ from django.core import mail
 class Mailer:
     def send(msg):
         bccs = msg.bcc
-        email_batch_size = 3
+        email_batch_size = 50
         num_bccs = len(bccs)
         if num_bccs <= email_batch_size:
             #print('send mail to:')
