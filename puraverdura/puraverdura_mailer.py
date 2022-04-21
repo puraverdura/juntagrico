@@ -6,8 +6,8 @@ import time
 class Mailer:
     def send(msg):
         bccs = msg.bcc
-        email_batch_size = 2
-        wait_time_batch = 60
+        email_batch_size = 39
+        wait_time_batch = 65
         num_bccs = len(bccs)
         if num_bccs <= email_batch_size:
             #print('send mail to:')
