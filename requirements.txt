@@ -1,3 +1,5 @@
+reportlab==3.6.6
+
 juntagrico==1.4.5
 # git+http://github.com/juntagrico/juntagrico.git@main
 
@@ -6,5 +8,10 @@ psycopg2==2.8.4
 
 openpyxl==3.0.6
 
+
+
 # juntagrico badges
 git+https://github.com/juntagrico/juntagrico-badges.git@main
+
+# juntagrico pd
+juntagrico-pg==1.4.0

@@ -9,10 +9,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
-#SECRET_KEY = 'fake-key'
-DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
-#DEBUG = False
+#SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
+SECRET_KEY = 'fake-key'
+#DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
+DEBUG = False
 
 ALLOWED_HOSTS = ['login.puraverdura.ch','puraverdura.juntagrico.science', 'localhost',]
 
@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'impersonate',
     'crispy_forms',
     'puraverdura',
-    'adminsortable2'
+    'adminsortable2',
+    'juntagrico_pg'
 ]
 
 ROOT_URLCONF = 'puraverdura.urls'
@@ -178,7 +179,7 @@ VOCABULARY = {
     'member_type' : 'Mitglied',
     'member_type_pl' : 'Mitglieder',
     'depot' : 'Depot',
-    'depot_pl' : 'Depots'
+    'depot_pl' : 'Depots',
 }
 ORGANISATION_NAME = "Pura Verdura"
 ORGANISATION_NAME_CONFIG = {"type" : "",
