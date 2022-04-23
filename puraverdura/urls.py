@@ -28,7 +28,8 @@ urlpatterns = [
     url(r'^$', juntagrico.views.home),
     url(r'^impersonate/', include('impersonate.urls')),
     path('badges/', include('juntagrico_badges.urls')),
-
+    url(r'^', include('juntagrico_pg.urls')),
+    
     # stats
     #url('stats/', puraverdura.stats),
 
