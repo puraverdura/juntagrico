@@ -21,7 +21,7 @@ class Mailer:
                 msg.send()
                 batch = {'timestamp': str(timezone.now()),'to': tos, 'cc': ccs, 'bcc': bccs}
                 recipients_batches.append(batch)
-                _send_admin_msg(msg, recipients_batches)
+                #_send_admin_msg(msg, recipients_batches)
                 return 
 
             plain_msg = copy.copy(msg)
