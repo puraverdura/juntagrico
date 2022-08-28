@@ -1,6 +1,6 @@
 reportlab==3.6.6
 
-juntagrico==1.4.5
+juntagrico==1.5.4
 # git+http://github.com/juntagrico/juntagrico.git@main
 
 gunicorn==20.0.4
@@ -14,4 +14,4 @@ openpyxl==3.0.6
 git+https://github.com/juntagrico/juntagrico-badges.git@main
 
 # juntagrico pd
-juntagrico-pg==1.4.0
+juntagrico-pg==1.5.0

@@ -79,7 +79,7 @@ More complex
     
 ### Run the server
 
-    python -m manage runserver
+    python manage.py runserver --insecure
     
 #Heroku
 
