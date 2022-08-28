@@ -10,9 +10,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
-#SECRET_KEY = 'fake-key'
+SECRET_KEY = 'fake-key'
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
-#DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['login.puraverdura.ch','puraverdura.juntagrico.science', 'localhost',]
 
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'polymorphic',
     'juntagrico',
     'juntagrico_badges',
     'impersonate',
@@ -88,6 +89,9 @@ USE_I18N = True
 # calendars according to the current locale.
 USE_L10N = True
 
+# Change maximum number of allowed fields (default: 1000)
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 3000
+
 USE_TZ = True
 TIME_ZONE = 'Europe/Zurich'
 
@@ -105,7 +109,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'impersonate.middleware.ImpersonateMiddleware'
+    'impersonate.middleware.ImpersonateMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware'
 ]
 
 EMAIL_HOST = os.environ.get('JUNTAGRICO_EMAIL_HOST')
@@ -200,12 +205,14 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "46-110-7",
 #INFO_EMAIL = "mitglieder@puraverdura.ch"
 INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
 SERVER_URL = "www.puraverdura.ch"
-ADMINPORTAL_NAME = "Mitgliederplattform Pura Verdura"
-ADMINPORTAL_SERVER_URL = "login.puraverdura.ch"
+#ADMINPORTAL_NAME = "Mitgliederplattform Pura Verdura"
+#ADMINPORTAL_SERVER_URL = "login.puraverdura.ch"
 BUSINESS_REGULATIONS = "https://www.puraverdura.ch/wp-content/uploads/20210720_Betriebsreglement.pdf"
 BYLAWS = "https://www.puraverdura.ch/wp-content/uploads/20191026_Final-nach-GV-Statuten_Pura-Verdura.pdf"
 MAIL_TEMPLATE = "mails/email.html"
-STYLE_SHEET = "/static/css/individual.css"
+STYLES = {'static': ['css/individual.css']}
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+#STYLE_SHEET = "/static/css/individual.css"
 FAVICON = "/static/img/favicono.ico"
 FAQ_DOC = "https://www.puraverdura.ch/faq/"
 EXTRA_SUB_INFO = ""

@@ -1,6 +1,6 @@
-"""puraverdura URL Configuration
-
-The `urlpatterns` list routes URLs to views. 
+"""demo URL Configuration
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.10/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -12,9 +12,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
-from django.urls import path
+from django.conf.urls import include
 from django.contrib import admin
+from django.urls import path, re_path
+
 import juntagrico
 
 # Custom Views of Pura Verdura
@@ -22,16 +23,19 @@ from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
 #from puraverdura import views_admin as puraverdura_admin
 
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('juntagrico.urls')),
-    url(r'^$', juntagrico.views.home),
-    url(r'^impersonate/', include('impersonate.urls')),
+    re_path(r'^admin/', admin.site.urls),
+
+    re_path(r'^impersonate/', include('impersonate.urls')),
+    re_path(r'^djrichtextfield/', include('djrichtextfield.urls')),
+
+    re_path(r'^', include('juntagrico.urls')),
+    re_path(r'^$', juntagrico.views.home),
+
     path('badges/', include('juntagrico_badges.urls')),
-    url(r'^', include('juntagrico_pg.urls')),
-    
-    # stats
-    #url('stats/', puraverdura.stats),
+
+    re_path(r'^', include('juntagrico_pg.urls')),
 
     # member email list
     path('my/filters_emails/', puraverdura.filters_emails, name='filters_emails'),
@@ -44,14 +48,4 @@ urlpatterns = [
 
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),
-
-    # # Use batch emails
-    # path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),
-    # # /mails/depot
-    # path('my/mails/send/depot/', puraverdura_admin.send_email_depot, name='mail-depot-send'),
-    # # /mails/area
-    # path('my/mails/send/area/', puraverdura_admin.send_email_area, name='mail-area-send'),
-    # # /mails/job
-    # path('my/mails/send/job/', puraverdura_admin.send_email_job, name='mail-job-send'),
-
-    ]
+]
