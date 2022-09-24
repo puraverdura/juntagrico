@@ -10,9 +10,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
-SECRET_KEY = 'fake-key'
+#SECRET_KEY = 'fake-key'
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
-DEBUG = True
+#DEBUG = True
 
 ALLOWED_HOSTS = ['login.puraverdura.ch','puraverdura.juntagrico.science', 'localhost',]
 
@@ -124,7 +124,12 @@ ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
 #DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
-DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
+#DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
+DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
+EMAIL_BATCH_SIZE = 39
+EMAIL_WAIT_BETWEEN_BATCHES = 65
+EMAIL_SEND_BATCH_ADMIN_MESSAGE = True
+
 
 DEFAULT_FROM_EMAIL = 'it@puraverdura.ch'
  
@@ -229,6 +234,7 @@ BILLING = False
 BUSINESS_YEAR_START = {"day":1, "month":4}
 BUSINESS_YEAR_CANCELATION_MONTH = 12
 MEMBERSHIP_END_MONTH = 12
+USE_JOB_STATUS_IMAGES = True
 IMAGES = {'status_100': '/static/img/status_100_cropped.png',
             'status_75': '/static/img/status_75_cropped.png',
             'status_50': '/static/img/status_50_cropped.png',
