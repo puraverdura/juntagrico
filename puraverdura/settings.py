@@ -126,7 +126,7 @@ ADMINS = (
 #DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
 #DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
 DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
-EMAIL_BATCH_SIZE = 2
+EMAIL_BATCH_SIZE = 39
 EMAIL_WAIT_BETWEEN_BATCHES = 65
 EMAIL_SEND_BATCH_ADMIN_MESSAGE = True
 
