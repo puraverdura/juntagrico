@@ -80,7 +80,7 @@
                     </td>
                 {% endif %}
                 <td>
-                    {% if job.free_slots > -1 %}
+                    {% if job.free_slots > -1 %} 
                         <img alt="{{ job.occupied_slots }} / {{ job.slots }}" src="/static/img/status_{{ job.status_quartile }}_cropped.png"/>
                     {% endif %}
                 </td>
