@@ -7,7 +7,7 @@ reportlab==3.6.6
 git+http://github.com/juntagrico/juntagrico.git@puraverdura_dep
 
 # For development (editable)
-# -e /home/chriswei/repos/clean_juntagrico
+# -e /home/chriswei/repos/clean_juntagrico/
 
 gunicorn==20.0.4
 psycopg2==2.8.4
