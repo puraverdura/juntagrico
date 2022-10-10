@@ -4,8 +4,7 @@ reportlab==3.6.6
 # juntagrico==1.5.4
 
 # puraverdura branch on juntagrico
-#git+http://github.com/juntagrico/juntagrico.git@puraverdura_dep
-git+http://github.com/juntagrico/juntagrico.git@85cbd690105dd667676d66ba6bc9d6feac27ada4
+git+http://github.com/juntagrico/juntagrico.git@puraverdura_dep
 
 # For development (editable)
 # -e /home/chriswei/repos/clean_juntagrico/
