@@ -12,31 +12,37 @@
     <div class="row mb-3">
         <div class="col-md-12">
             {% blocktrans trimmed with ed=end_date|date:"d.m.Y" %}
-            Hier kannst du dein/e/n {{ v_subscription }} kündigen. Der nächste
-            reguläre Kündigungstermin ist der <b>{{ ed }}</b>.
-            <br/>
-            <br/>
-            Bitte gib im Formular unten noch folgendes an: 
-            <br/>
-            <ul>
-                <li>
-                    Ob du deine Mitgliedschaft künden willst oder weiterhin als Passivmitglied dabei bleibst (dafür braucht es einen Anteilschein)
-                </li>
-                <li>
-                    Deine IBAN Nummer für die Überweisung des Anteilscheines (falls du deine Mitgliedschaft künden möchtest)
-                </li>
-                <li>
-                    Vollständiger Name und PLZ/Ort
-                </li>
-            </ul>
+            Hier kannst du dein/e/n {{ v_subscription }} kündigen. Der nächste reguläre Kündigungstermin ist am <b>{{ ed }}</b>.
             {% endblocktrans %}
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-md-12">
-            <form action="" method="POST" onsubmit="return confirm('{% blocktrans %}Möchtest du sicher deieses {{ v_subscription }} verbindlich künden?{% endblocktrans %}')">
+            <form action="" method="POST" onsubmit="return confirm('{% blocktrans %}Möchtest du deinen {{ v_subscription }} verbindlich künden?{% endblocktrans %}')">
                 {% csrf_token %}
                 <input name="end_date" value="{{ end_date |date:"Y-m-d" }}" type="hidden"/>
+                Wähle zunächst ob du deinen {{ v_subscription }} auf den regulären 
+                Termin oder ab sofort kündigen willst. Wenn du die Option "ab jetzt" wählst werden wir versuchen
+                Mitglieder auf der Warteliste zu finden, die deinen Ernteanteil übernehmen möchten. Sobald ein Mitglied gefunden wurde können wir 
+                dir den Restbetrag deines Ernteanteils überweisen. Gib dafür bitte deine IBAN Nummer an.<br><br> 
+                <div class="form-group">
+                    <input type="radio" id="regular" name="now_or_regular" value="regular" onclick="disable_iban()" checked>
+                    <label for="regular">regulär</label><br>
+                    <input type="radio" id="now" name="now_or_regular" value="now" onclick="enable_iban()">
+                    <label for="now">ab jetzt</label>
+                </div>
+                <br> 
+                Möchtest du weiterhin passives Mitglied in der Pura Verdura Genossenschaft bleiben? So bleibst du auf dem laufenden mit unserem Newsletter
+                und hilfst uns unsere Infrastruktur zu finanzieren. Falls nicht gib uns bitte deine IBAN Nummer an, damit wir deinen Anteilsschein zurückerstatten können. <br><br> 
+                <div class="form-group">
+                    <input type="radio" id="no" name="cancel_membership" value="no" onclick="disable_iban()" checked>
+                    <label for="no">Ich möchte Mitglied bei Pura Verdura bleiben</label><br>
+                    <input type="radio" id="yes" name="cancel_membership" value="yes" onclick="enable_iban()">
+                    <label for="yes">Ich möchte meine Mitgliedschaft kündigen</label><br>
+                </div>
+                <div class="form-group">
+                    IBAN Nr: <input type="text" name="iban" id="iban" disabled/>
+                </div>
                 <div class="form-group">
                     <label for="message">
                         {% trans "Mitteilung" %}
@@ -51,4 +57,20 @@
             </form>
         </div>
     </div>
+    
+{% endblock %}
+
+{% block scripts %}
+    <script type = "text/javascript">  
+        function enable_iban() {
+            document.getElementById("iban").required = true;
+            document.getElementById("iban").disabled = false;
+        }
+        function disable_iban() {
+            if ( !(document.getElementById("now").checked || document.getElementById("yes").checked) ) {
+                document.getElementById("iban").required = false;
+                document.getElementById("iban").disabled = true;
+            }
+        }
+    </script>  
 {% endblock %}

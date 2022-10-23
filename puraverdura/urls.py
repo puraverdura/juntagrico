@@ -46,6 +46,10 @@ urlpatterns = [
     # override share certificate
     path('my/share/certificate/', puraverdura_subscription.share_certificate, name='share-certificate'),
 
+    # override subscription cancellation
+    path('my/subscription/cancel/<int:subscription_id>', puraverdura_subscription.cancel_subscription,
+         name='sub-cancel'),
+
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),
 ]
