@@ -10,9 +10,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
-#SECRET_KEY = 'fake-key'
+# SECRET_KEY = 'fake-key'
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
-#DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['login.puraverdura.ch','puraverdura.juntagrico.science', 'localhost',]
 
@@ -126,9 +126,10 @@ ADMINS = (
 #DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
 #DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
 DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
-EMAIL_BATCH_SIZE = 39
-EMAIL_WAIT_BETWEEN_BATCHES = 65
-EMAIL_SEND_BATCH_ADMIN_MESSAGE = True
+BATCH_MAILER = {
+    'batch_size': 2,
+    'wait_time': 65
+}
 
 
 DEFAULT_FROM_EMAIL = 'it@puraverdura.ch'
