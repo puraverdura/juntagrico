@@ -127,7 +127,7 @@ ADMINS = (
 #DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
 DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
 BATCH_MAILER = {
-    'batch_size': 2,
+    'batch_size': 39,
     'wait_time': 65
 }
 
