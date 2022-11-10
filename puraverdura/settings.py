@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'polymorphic',
+    'django_admin_shell',
     'juntagrico',
     'juntagrico_badges',
     'impersonate',
@@ -278,3 +279,6 @@ EMAILS = {
 #    's_created': 'puraverdura_emails/anteilsschein_mail.txt',
     's_created': 'puraverdura_emails/anteilsschein_mail_warteliste.txt',
 }
+
+# Admin shell
+ADMIN_SHELL_ONLY_DEBUG_MODE = False

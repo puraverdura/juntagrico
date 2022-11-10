@@ -14,10 +14,13 @@ psycopg2==2.8.4
 
 openpyxl==3.0.6
 
-
+# Admin Shell
+django-admin-shell==1.1.0
 
 # juntagrico badges
 git+https://github.com/juntagrico/juntagrico-badges.git@main
 
 # juntagrico pd
 juntagrico-pg==1.5.0
+
+
