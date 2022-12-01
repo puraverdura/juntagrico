@@ -8,14 +8,18 @@ from django.db.models import Count, Sum
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.conf import settings
+from django import forms
 
 from juntagrico.entity.subs import Subscription
 from juntagrico.config import Config
 from juntagrico.util.pdf import render_to_pdf_http
 from juntagrico.util.temporal import end_of_next_business_year, end_of_business_year, \
-    cancelation_date
-from juntagrico.util.management import cancel_sub
+    cancelation_date, next_membership_end_date
+from juntagrico.util.management import cancel_sub, cancel_share
 from juntagrico.view_decorators import primary_member_of_subscription
+from juntagrico.mailer import adminnotification
+
+from schwifty import IBAN
 
 
 @login_required
@@ -57,26 +61,94 @@ def error_page(request, error_message):
     return render(request, 'error.html', renderdict)
 
 
+
+class MembershipAndSubscriptionCancellationForm(forms.Form):
+
+    regular_or_now_choices=[('regular','regulär'),
+                        ('now','ab jetzt')]
+    regular_or_now = forms.ChoiceField(choices=regular_or_now_choices, widget=forms.RadioSelect, initial='regular')
+
+    cancel_membership_choices=[('no','Ich möchte Mitglied bei Pura Verdura bleiben'),
+                    ('yes','Ich möchte meine Mitgliedschaft auch kündigen')]
+    cancel_membership = forms.ChoiceField(choices=cancel_membership_choices, widget=forms.RadioSelect, initial='no')
+
+    iban = forms.CharField(label='iban', required=False)
+    message = forms.CharField(label='message', widget=forms.Textarea, required=False)
+
+
+    def __init__(self, *args, **kwargs):
+        if 'juntagrico_member' in kwargs:
+            member = kwargs.pop('juntagrico_member')
+        else:
+            member = None
+        super(MembershipAndSubscriptionCancellationForm, self).__init__(*args, **kwargs) 
+        if member:
+            self.fields['iban'].initial = member.iban
+    
+
+    def clean_iban(self):
+        iban = self.data.get('iban', '')
+        if not iban:
+            return
+        try:
+            IBAN(iban)
+        except ValueError:
+            raise forms.ValidationError(_('IBAN ist nicht gültig'))
+        return iban
+
+
+
 @primary_member_of_subscription
 def cancel_subscription(request, subscription_id):
+    #Subscription
     subscription = get_object_or_404(Subscription, id=subscription_id)
     now = timezone.now().date()
-    end_date = end_of_business_year() if now <= cancelation_date() else end_of_next_business_year()
+    end_date_sub = end_of_business_year() if now <= cancelation_date() else end_of_next_business_year()
+    #Membership
+    member = request.user.member
+    asc = member.usable_shares_count
+    sub = member.subscription_current
+    f_sub = member.subscription_future
+    end_date_mem = next_membership_end_date()
     if request.method == 'POST':
-        iban = request.POST.get('iban')
-        now_or_regular = request.POST.get('now_or_regular')
-        cancel_membership = request.POST.get('cancel_membership')
-        message = request.POST.get('message')
-        admin_message = \
-            f"""Gewünschter Kündigungszeitpunkt: {now_or_regular}\n\n
+        form = MembershipAndSubscriptionCancellationForm(request.POST, juntagrico_member=member)
+        if form.is_valid():
+            iban = form.cleaned_data['iban']
+            if iban:
+                member.iban = iban
+                member.save()
+            regular_or_now = form.cleaned_data['regular_or_now']
+            cancel_membership = form.cleaned_data['cancel_membership']
+            message = form.cleaned_data['message']
+            admin_message = \
+                f"""
+                Gewünschter Kündigungszeitpunkt: {regular_or_now}\n\n
                 Soll Mitgliedschaft gekündigt werden: {cancel_membership}\n\n
                 IBAN: {iban}\n\n
                 Nachricht:\n
-                {message}"""
-        print(admin_message)
-        cancel_sub(subscription, request.POST.get('end_date'), admin_message)
-        return redirect('sub-detail')
+                {message}
+                """
+            print(admin_message)
+            cancel_sub(subscription, end_date_sub, admin_message)
+            future_active = f_sub is not None and (f_sub.state == 'active' or f_sub.state == 'waiting')
+            current_active = sub is not None and (sub.state == 'active' or sub.state == 'waiting')
+            future = future_active and f_sub.share_overflow - asc < 0
+            current = current_active and sub.share_overflow - asc < 0
+            share_error = future or current
+            can_cancel = not share_error and not future_active and not current_active
+            if cancel_membership == 'yes':
+                member.end_date = end_date_mem
+                member.cancellation_date = now
+                [cancel_share(s, now, end_date_mem) for s in member.active_shares]
+                member.save()
+                return redirect('profile')
+
+            return redirect('sub-detail')
+    else:
+        form = MembershipAndSubscriptionCancellationForm(juntagrico_member=member)
     renderdict = {
-        'end_date': end_date,
+        'end_date_sub': end_date_sub,
+        'end_date_mem': end_date_mem,
+        'form': form,
     }
     return render(request, 'cancelsubscription.html', renderdict)

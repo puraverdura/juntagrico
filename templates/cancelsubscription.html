@@ -11,6 +11,7 @@
     {% vocabulary "subscription" as v_subscription %}
     <div class="row mb-3">
         <div class="col-md-12">
+
             <h4>
                 Abo-Sharing
             </h4>
@@ -21,10 +22,9 @@
             <h4>
                 Kündigung Ernteanteil
             </h4>
-            <form action="" method="POST" onsubmit="return confirm('{% blocktrans %}Möchtest du deinen {{ v_subscription }} verbindlich künden?{% endblocktrans %}')">
+            <form action="" method="POST" onsubmit="return confirm('{% blocktrans %}Möchtest du verbindlich künden?{% endblocktrans %}')">
                 {% csrf_token %}
-                <input name="end_date" value="{{ end_date |date:"Y-m-d" }}" type="hidden"/>
-                {% blocktrans trimmed with ed=end_date|date:"d.m.Y" %}
+                {% blocktrans trimmed with ed=end_date_sub|date:"d.m.Y" %}
                 Wähle zunächst ob du deinen {{ v_subscription }} auf den regulären 
                 Termin (<b>{{ ed }}</b>) oder ab sofort kündigen willst.<br>
                 Wenn du die Option "ab jetzt" wählst werden wir versuchen
@@ -33,9 +33,9 @@
                 {% endblocktrans %}
                 <br> 
                 <div class="form-group">
-                    <input type="radio" id="regular" name="now_or_regular" value="regular" onclick="disable_iban()" checked>
+                    <input type="radio" id="regular" name="regular_or_now" value="regular" onclick="disable_iban()" checked>
                     <label for="regular">regulär</label><br>
-                    <input type="radio" id="now" name="now_or_regular" value="now" onclick="enable_iban()">
+                    <input type="radio" id="now" name="regular_or_now" value="now" onclick="enable_iban()">
                     <label for="now">ab jetzt</label>
                 </div>
                 <br>
@@ -48,21 +48,26 @@
                     <input type="radio" id="no" name="cancel_membership" value="no" onclick="disable_iban()" checked>
                     <label for="no">Ich möchte Mitglied bei Pura Verdura bleiben</label><br>
                     <input type="radio" id="yes" name="cancel_membership" value="yes" onclick="enable_iban()">
-                    <label for="yes">Ich möchte meine Mitgliedschaft kündigen</label><br>
+                    <label for="yes">Ich möchte meine Mitgliedschaft auch kündigen</label><br>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="iban" id="iban_label">IBAN Nr: </label>
-                    <input type="text" name="iban" id="iban" disabled placeholder="xxxx xxxx xxxx xxxx xxxx x"/>
+                    <input type="text" name="iban" id="iban" value="{{form.iban.value}}" disabled/>
+                    {% if form.iban.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.iban.errors }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="message">
                         {% trans "Mitteilung" %}
                     </label>
-                    <textarea name="message" id="message" class="form-control" rows="12"placeholder="{% trans "Hier Nachricht eingeben" %}"></textarea>
+                    <textarea name="message" id="message" class="form-control" rows="12"placeholder="Möchtest du uns deinen Kündigungsgrund mitteilen?"></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" id="button_subm" class="btn btn-danger">
                         {% blocktrans %}{{ v_subscription }} künden{% endblocktrans %}
                     </button>
                 </div>
@@ -77,11 +82,23 @@
         function enable_iban() {
             document.getElementById("iban").required = true;
             document.getElementById("iban").disabled = false;
+            if (document.getElementById("yes").checked) {
+                document.getElementById("button_subm").innerHTML = "Ernteanteil und Mitgliedschaft künden";
+            }
+            else {
+                document.getElementById("button_subm").innerHTML = "Ernteanteil künden";
+            }
         }
         function disable_iban() {
             if ( !(document.getElementById("now").checked || document.getElementById("yes").checked) ) {
                 document.getElementById("iban").required = false;
                 document.getElementById("iban").disabled = true;
+            }
+            if (document.getElementById("yes").checked) {
+                document.getElementById("button_subm").innerHTML = "Ernteanteil und Mitgliedschaft künden";
+            }
+            else {
+                document.getElementById("button_subm").innerHTML = "Ernteanteil künden";
             }
         }
     </script>  
