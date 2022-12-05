@@ -139,7 +139,8 @@ def cancel_subscription(request, subscription_id):
             if cancel_membership == 'yes':
                 member.end_date = end_date_mem
                 member.cancellation_date = now
-                [cancel_share(s, now, end_date_mem) for s in member.active_shares]
+                #[cancel_share(s, now, end_date_mem) for s in member.active_shares]
+                [cancel_share(s, now, now) for s in member.active_shares]
                 member.save()
                 return redirect('profile')
 

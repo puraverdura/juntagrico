@@ -51,6 +51,9 @@ urlpatterns = [
     path('my/subscription/cancel/<int:subscription_id>', puraverdura_subscription.cancel_subscription,
          name='sub-cancel'),
 
+    # override membership cancellation
+    path('my/cancel/membership/', puraverdura.cancel_membership, name='cancel-membership'),
+
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),
 ]
