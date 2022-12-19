@@ -98,18 +98,32 @@ class MembershipAndSubscriptionCancellationForm(forms.Form):
 
 
 
-@primary_member_of_subscription
+#@primary_member_of_subscription
 def cancel_subscription(request, subscription_id):
     #Subscription
-    subscription = get_object_or_404(Subscription, id=subscription_id)
+    # subscription = get_object_or_404(Subscription, id=subscription_id)
+
+    if request.user.is_authenticated:
+        member = request.user.member
+    else:
+        return redirect('login')
+
     now = timezone.now().date()
     end_date_sub = end_of_business_year() if now <= cancelation_date() else end_of_next_business_year()
-    #Membership
-    member = request.user.member
+    #Membership and Subscription
     asc = member.usable_shares_count
     sub = member.subscription_current
     f_sub = member.subscription_future
+
+    future_active = f_sub is not None and (f_sub.state == 'active' or f_sub.state == 'waiting')
+    current_active = sub is not None and (sub.state == 'active' or sub.state == 'waiting')
+    future = future_active and f_sub.share_overflow - asc < 0
+    current = current_active and sub.share_overflow - asc < 0
+    share_error = future or current
+    can_cancel = not share_error and not future_active and not current_active
+
     end_date_mem = next_membership_end_date()
+    
     if request.method == 'POST':
         form = MembershipAndSubscriptionCancellationForm(request.POST, juntagrico_member=member)
         if form.is_valid():
@@ -129,13 +143,8 @@ def cancel_subscription(request, subscription_id):
                 {message}
                 """
             print(admin_message)
-            cancel_sub(subscription, end_date_sub, admin_message)
-            future_active = f_sub is not None and (f_sub.state == 'active' or f_sub.state == 'waiting')
-            current_active = sub is not None and (sub.state == 'active' or sub.state == 'waiting')
-            future = future_active and f_sub.share_overflow - asc < 0
-            current = current_active and sub.share_overflow - asc < 0
-            share_error = future or current
-            can_cancel = not share_error and not future_active and not current_active
+            if current_active and sub.primary_member.id == member.id:
+                cancel_sub(sub, end_date_sub, admin_message)
             if cancel_membership == 'yes':
                 member.end_date = end_date_mem
                 member.cancellation_date = now
