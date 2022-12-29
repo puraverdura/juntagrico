@@ -122,7 +122,8 @@ def cancel_subscription(request, subscription_id):
     share_error = future or current
     can_cancel = not share_error and not future_active and not current_active
 
-    end_date_mem = next_membership_end_date()
+    #end_date_mem = next_membership_end_date()
+    end_date_mem = end_date_sub
     
     if request.method == 'POST':
         form = MembershipAndSubscriptionCancellationForm(request.POST, juntagrico_member=member)
@@ -132,6 +133,8 @@ def cancel_subscription(request, subscription_id):
                 member.iban = iban
                 member.save()
             regular_or_now = form.cleaned_data['regular_or_now']
+            if regular_or_now == 'now':
+                end_date_sub = now
             cancel_membership = form.cleaned_data['cancel_membership']
             message = form.cleaned_data['message']
             admin_message = \
@@ -148,8 +151,8 @@ def cancel_subscription(request, subscription_id):
             if cancel_membership == 'yes':
                 member.end_date = end_date_mem
                 member.cancellation_date = now
-                #[cancel_share(s, now, end_date_mem) for s in member.active_shares]
-                [cancel_share(s, now, now) for s in member.active_shares]
+                [cancel_share(s, now, end_date_mem) for s in member.active_shares]
+                #[cancel_share(s, now, now) for s in member.active_shares]
                 member.save()
                 return redirect('profile')
 
