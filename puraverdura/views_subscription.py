@@ -135,6 +135,7 @@ def cancel_subscription(request, subscription_id):
             regular_or_now = form.cleaned_data['regular_or_now']
             if regular_or_now == 'now':
                 end_date_sub = now
+                end_date_mem = now
             cancel_membership = form.cleaned_data['cancel_membership']
             message = form.cleaned_data['message']
             admin_message = \
