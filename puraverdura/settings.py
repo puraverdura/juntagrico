@@ -135,7 +135,6 @@ BATCH_MAILER = {
 
 DEFAULT_FROM_EMAIL = 'it@puraverdura.ch'
  
-
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 WHITELIST_EMAILS = []
