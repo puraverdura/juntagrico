@@ -78,12 +78,12 @@ def send_email_intern(request):
     append_attachements(request, files)
 
     if len(emails) > 0:
-        # formemails.internal(
-        #     request.POST.get('subject'),
-        #     request.POST.get('message'),
-        #     request.POST.get('textMessage'),
-        #     emails, files, sender=sender
-        # )
+        formemails.internal(
+            request.POST.get('subject'),
+            request.POST.get('message'),
+            request.POST.get('textMessage'),
+            emails, files, sender=sender
+        )
         sent = len(emails)
     # return redirect('mail-result', numsent=sent)
     return send_email_result(request, numsent=sent, emails=emails)
