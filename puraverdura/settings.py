@@ -277,6 +277,7 @@ EMAILS = {
     'co_welcome': 'puraverdura_emails/mitabonnent_willkommen.txt',
     's_created': 'puraverdura_emails/anteilsschein_mail.txt',
 #    's_created': 'puraverdura_emails/anteilsschein_mail_warteliste.txt',
+    's_canceled': 'puraverdura_emails/subscription_canceled_mail.txt',
 }
 
 # Admin shell
