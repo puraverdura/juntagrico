@@ -147,6 +147,7 @@ def cancel_subscription(request, subscription_id):
                 {message}
                 """
             print(admin_message)
+            adminnotification.subscription_canceled(sub, admin_message)
             if current_active and sub.primary_member.id == member.id:
                 cancel_sub(sub, end_date_sub, admin_message)
             if cancel_membership == 'yes':
