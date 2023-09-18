@@ -140,6 +140,8 @@ def cancel_subscription(request, subscription_id):
             message = form.cleaned_data['message']
             admin_message = \
                 f"""
+                Mitglied: {member.__dict__}
+                
                 Gewünschter Kündigungszeitpunkt: {regular_or_now}\n\n
                 Soll Mitgliedschaft gekündigt werden: {cancel_membership}\n\n
                 IBAN: {iban}\n\n
