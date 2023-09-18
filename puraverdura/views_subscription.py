@@ -141,7 +141,7 @@ def cancel_subscription(request, subscription_id):
             admin_message = \
                 f"""
                 Mitglied: {member.first_name} {member.last_name}\n\n
-                Email: {member.email}
+                Email: {member.email}\n\n
                 Gewünschter Kündigungszeitpunkt: {regular_or_now}\n\n
                 Soll Mitgliedschaft gekündigt werden: {cancel_membership}\n\n
                 IBAN: {iban}\n\n
