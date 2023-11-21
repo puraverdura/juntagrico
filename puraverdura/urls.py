@@ -21,7 +21,7 @@ import juntagrico
 # Custom Views of Pura Verdura
 from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
-# from puraverdura import views_admin as puraverdura_admin
+from puraverdura import views_admin as puraverdura_admin
 
 
 urlpatterns = [
@@ -55,8 +55,8 @@ urlpatterns = [
     path('my/cancel/membership/', puraverdura.cancel_membership, name='cancel-membership'),
 
     # override email confirmation
-    # path('my/mails/', puraverdura_admin.mails, name='mail'),
-    # path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),
+    path('my/mails/', puraverdura_admin.mails, name='mail'),
+    path('my/mails/send/', puraverdura_admin.send_email, name='mail-send'),
 
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),
