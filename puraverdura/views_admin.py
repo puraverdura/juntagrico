@@ -85,7 +85,8 @@ def send_email_intern(request):
             emails, files, sender=sender
         )
         sent = len(emails)
-        request_dict = {k:v[0] for k,v in dict(request.POST).items()}
+    request_dict = {k:v[0] for k,v in dict(request.POST).items()}
+    request_dict = dict(request.POST)
     return redirect('mail-result', numsent=sent, request_dict=request_dict)
 
 
