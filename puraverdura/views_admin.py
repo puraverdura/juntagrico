@@ -22,7 +22,7 @@ from juntagrico.entity.jobs import ActivityArea
 from juntagrico.entity.member import Member
 from juntagrico.entity.share import Share
 from juntagrico.mailer import append_attachements
-#from juntagrico.mailer import formemails
+from juntagrico.mailer import formemails
 from juntagrico.util import return_to_previous_location, addons
 from juntagrico.util.management_list import get_changedate
 from juntagrico.util.pdf import return_pdf_http
@@ -31,56 +31,6 @@ from juntagrico.util.views_admin import subscription_management_list
 from juntagrico.util.xls import generate_excel
 from juntagrico.view_decorators import any_permission_required
 from juntagrico.views_subscription import error_page
-
-###################################### Manual formmails for debugging ######################################
-from django.contrib.sites.models import Site
-from django.template.loader import get_template
-from django.utils.translation import gettext as _
-
-from juntagrico.config import Config
-from juntagrico.mailer import EmailSender, base_dict
-
-"""
-Form emails
-"""
-class formemails:
-
-    def contact(subject, message, member, copy_to_member):
-        subject = _('Anfrage per {0}:').format(Site.objects.get_current().name) + subject
-        email_sender = EmailSender.get_sender(subject, message)
-        email_sender.send_to(Config.info_email(), reply_to=[member.email])
-        if copy_to_member:
-            email_sender.send_to(member.email)
-
-
-    def contact_member(subject, message, member, contact_member, copy_to_member, files):
-        subject = _('Nachricht per {0}:').format(Site.objects.get_current().name) + subject
-        email_sender = EmailSender.get_sender(subject, message, reply_to=[member.email]).attach_files(files)
-        email_sender.send_to(contact_member.email)
-        if copy_to_member:
-            email_sender.send_to(member.email)
-
-
-    def internal(subject, message, text_message, emails, files, sender):
-        htmld = base_dict({
-            'mail_template': Config.mail_template,
-            'subject': subject,
-            'content': message
-        })
-        textd = base_dict({
-            'subject': subject,
-            'content': text_message
-        })
-        text_content = get_template('mails/form/filtered_mail.txt').render(textd)
-        html_content = get_template('mails/form/filtered_mail.html').render(htmld)
-        email_sender = EmailSender.get_sender(subject, text_content, bcc=emails, from_email=sender)\
-            .attach_html(html_content).attach_files(files)
-        email_sender.send()
-        return email_sender
-
-####################################################################################################
-
-
 
 
 @permission_required('juntagrico.can_send_mails')
@@ -128,7 +78,7 @@ def send_email_intern(request):
     append_attachements(request, files)
 
     if len(emails) > 0:
-        sender = formemails.internal(
+        formemails.internal(
             request.POST.get('subject'),
             request.POST.get('message'),
             request.POST.get('textMessage'),
@@ -137,7 +87,6 @@ def send_email_intern(request):
         sent = len(emails)
     request_dict = {k:v[0] for k,v in dict(request.POST).items()}
     request_dict['emails'] = emails
-    request_dict['sender'] = sender
     return send_email_result(request, numsent=sent, request_dict=request_dict)
     # return redirect('mail-result', numsent=sent, request_dict=request_dict)
 
