@@ -86,6 +86,7 @@ def send_email_intern(request):
         )
         sent = len(emails)
     request_dict = {k:v[0] for k,v in dict(request.POST).items()}
+    request_dict = {'bla': 1, 'blu':2, 'bli': 3}
     return redirect('mail-result', numsent=sent, request_dict=request_dict)
 
 
@@ -95,7 +96,7 @@ def send_email_intern(request):
 def send_email_result(request, numsent, request_dict=None):
     renderdict = {
         'sent': numsent,
-        'request_info': request_dict
+        'request': request_dict
     }
     return render(request, 'mail_sender_result.html', renderdict)
 
