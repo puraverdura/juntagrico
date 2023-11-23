@@ -1,7 +1,7 @@
 import re
 from io import BytesIO
 
-from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.decorators import permission_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Template, Context
@@ -85,17 +85,17 @@ def send_email_intern(request):
             emails, files, sender=sender
         )
         sent = len(emails)
-    return redirect('mail-result', numsent=sent)
+    # return redirect('mail-result', numsent=sent)
+    return send_email_result(request, numsent=sent, emails=emails)
 
 
 @any_permission_required('juntagrico.can_send_mails',
                          'juntagrico.is_depot_admin',
                          'juntagrico.is_area_admin')
-def send_email_result(request, numsent):
-    request_dict = {k:v[0] for k,v in dict(request.POST).items()}
+def send_email_result(request, numsent, emails=None):
     renderdict = {
         'sent': numsent,
-        'request': request_dict
+        'emails': emails
     }
     return render(request, 'mail_sender_result.html', renderdict)
 
@@ -525,7 +525,6 @@ def assignments(request):
                                         'management_lists/assignments.html', request)
 
 
-@login_required
 def versions(request):
     versions = {'juntagrico': version}
     versions.update(addons.config.get_versions())
