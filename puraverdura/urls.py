@@ -21,7 +21,7 @@ import juntagrico
 # Custom Views of Pura Verdura
 from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
-# from puraverdura import views_admin as puraverdura_admin
+from puraverdura import views_admin as puraverdura_admin
 
 
 urlpatterns = [
