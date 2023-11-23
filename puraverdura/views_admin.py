@@ -86,8 +86,8 @@ def send_email_intern(request):
         )
         sent = len(emails)
     request_dict = {k:v[0] for k,v in dict(request.POST).items()}
-    return send_email_result(request, numsent=sent, request_dict=request_dict)
-    # return redirect('mail-result', numsent=sent, request_dict=request_dict)
+    request_dict = {'bla':1, 'bli':2, 'blue':3}
+    return redirect('mail-result', numsent=sent, request_dict=request_dict)
 
 
 @any_permission_required('juntagrico.can_send_mails',
