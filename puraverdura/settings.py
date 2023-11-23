@@ -124,8 +124,9 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
-DEFAULT_MAILER = 'juntagrico.util.mailer.default.Mailer'
-#DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
+#DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
+#DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
+DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
 BATCH_MAILER = {
     'batch_size': 39,
     'wait_time': 65
