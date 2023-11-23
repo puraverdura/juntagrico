@@ -7,7 +7,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Template, Context
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from django.utils.module_loading import import_string
 from xlsxwriter import Workbook
 
 from juntagrico import version
@@ -77,12 +76,7 @@ class formemails:
         email_sender = EmailSender.get_sender(subject, text_content, bcc=emails, from_email=sender)\
             .attach_html(html_content).attach_files(files)
         email_sender.send()
-        ######## Manual mailer send for debugging ########
-        mailer = import_string(Config.default_mailer())
-        mailer.send(email_sender.email)
-
-        ##################################################
-        return email_sender, mailer
+        return email_sender
 
 ####################################################################################################
 
@@ -134,7 +128,7 @@ def send_email_intern(request):
     append_attachements(request, files)
 
     if len(emails) > 0:
-        sender, mailer = formemails.internal(
+        sender = formemails.internal(
             request.POST.get('subject'),
             request.POST.get('message'),
             request.POST.get('textMessage'),
@@ -144,7 +138,6 @@ def send_email_intern(request):
     request_dict = {k:v[0] for k,v in dict(request.POST).items()}
     request_dict['emails'] = emails
     request_dict['sender'] = sender.email.__dict__
-    request_dict['mailer'] = mailer.__dict__
     return send_email_result(request, numsent=sent, request_dict=request_dict)
     # return redirect('mail-result', numsent=sent, request_dict=request_dict)
 
