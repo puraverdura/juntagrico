@@ -123,7 +123,7 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 
 FROM_FILTER = {
     'filter_expression': '[A-Za-z0-9._%+-]+@puraverdura\.ch',
-    'replacement_from': 'it@puraverdura.ch'
+    'replacement_from': '"Pura Verdura Mitglied" <server@puraverdura.ch>'
 }
 
 ADMINS = (
