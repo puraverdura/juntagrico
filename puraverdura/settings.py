@@ -122,7 +122,8 @@ EMAIL_USE_TLS = os.environ.get('JUNTAGRICO_EMAIL_TLS', 'False')=='True'
 EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 
 FROM_FILTER = {
-    'filter_expression': '[A-Za-z0-9._%+-]+@puraverdura\.ch',
+    # This regex matches @puraverdura.ch email addresses, standalone or in "Name" <email> format.
+    'filter_expression': '(?:\"[A-Za-zÄäÖöÜüß0-9._%+\s-]+\" )?<([A-Za-z0-9._%+-]+@puraverdura\.ch)>|[A-Za-z0-9._%+-]+@puraverdura\.ch',
     'replacement_from': '"Pura Verdura Mitglied" <server@puraverdura.ch>'
 }
 
