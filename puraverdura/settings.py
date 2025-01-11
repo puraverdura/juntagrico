@@ -129,8 +129,10 @@ FROM_FILTER = {
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
-# DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
+
+# To create a custom mailer, create file puraverdura_mailer.py and add this line:
 # DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
+
 DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
 BATCH_MAILER = {
     'batch_size': 39,
