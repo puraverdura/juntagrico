@@ -1,7 +1,6 @@
 """
 Django settings for puraverdura project.
 """
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -17,7 +16,6 @@ ALLOWED_HOSTS = ['login.puraverdura.ch','puraverdura.juntagrico.science', 'local
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,8 +127,7 @@ FROM_FILTER = {
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
-# DEFAULT_MAILER = 'juntagrico.util.defaultmailer.Mailer'
-# DEFAULT_MAILER = 'puraverdura.puraverdura_mailer.Mailer'
+
 DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
 BATCH_MAILER = {
     'batch_size': 39,
@@ -164,21 +161,14 @@ IMPERSONATE = {
 
 LOGIN_REDIRECT_URL = "/my/home"
 
-"""
-    File & Storage Settings
-"""
+# File & Storage Settings
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
 MEDIA_ROOT = 'media'
 
-"""
-     Crispy Settings
-"""
+# Crispy Settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-"""
-     juntagrico Settings
-"""
+# juntagrico Settings
 VOCABULARY = {
     'member': 'Mitglied',
     'member_pl': 'Mitglieder',
@@ -212,17 +202,14 @@ ORGANISATION_BANK_CONNECTION = {"PC": "46-110-7",
                                 "BIC": "ABSOCH22XXX",
                                 "NAME": "ABS",
                                 "ESR": ""}
-# INFO_EMAIL = "mitglieder@puraverdura.ch"
+
 INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
 SERVER_URL = "www.puraverdura.ch"
-# ADMINPORTAL_NAME = "Mitgliederplattform Pura Verdura"
-# ADMINPORTAL_SERVER_URL = "login.puraverdura.ch"
 BUSINESS_REGULATIONS = "https://www.puraverdura.ch/wp-content/uploads/20210720_Betriebsreglement.pdf"
 BYLAWS = "https://www.puraverdura.ch/wp-content/uploads/Statuten_Pura-Verdura_Version_2022_nach-GV.pdf"
 MAIL_TEMPLATE = "mails/email.html"
 STYLES = {'static': ['css/individual.css']}
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-# STYLE_SHEET = "/static/css/individual.css"
 FAVICON = "/static/img/favicono.ico"
 FAQ_DOC = "https://www.puraverdura.ch/faq/"
 EXTRA_SUB_INFO = ""
@@ -248,32 +235,9 @@ IMAGES = {'status_100': '/static/img/status_100_cropped.png',
           'single_full': '/static/img/schaufel_pickel_colored.png',
           'single_empty': '/static/img/schaufel_pickel_gray.png',
           'single_core': '/static/img/schaufel_pickel_colored.png',
-          # 'core': '/static/img/schaufel_iconized.png'}
-          # 'core': '/static/img/Transparent_Pixel.png'
           'core': '/static/img/samen_iconized.png'}
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
-
-# EMAILS = {
-#     'welcome': 'mails/welcome_mail.txt',
-#     'co_welcome': 'mails/welcome_added_mail.txt',
-#     'co_added': 'mails/added_mail.txt',
-#     'password': 'mails/password_reset_mail.txt',
-#     'j_reminder': 'mails/job_reminder_mail.txt',
-#     'j_canceled': 'mails/job_canceled_mail.txt',
-#     'confirm': 'mails/confirm.txt',
-#     'j_changed': 'mails/job_time_changed_mail.txt',
-#     'j_signup': 'mails/job_signup_mail.txt',
-#     'd_changed': 'mails/depot_changed_mail.txt',
-#     's_created': 'mails/share_created_mail.txt',
-#     'n_sub': 'mails/new_subscription.txt',
-#     's_canceled': 'mails/subscription_canceled_mail.txt',
-#     'm_canceled': 'mails/membership_canceled_mail.txt',
-#     'b_share': 'mails/bill_share.txt',
-#     'b_sub': 'mails/bill_sub.txt',
-#     'b_esub': 'mails/bill_extrasub.txt'
-# }
-
 
 EMAILS = {
     'welcome': 'puraverdura_emails/willkommen_mail.txt',
