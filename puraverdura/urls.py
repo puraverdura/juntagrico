@@ -18,7 +18,7 @@ from django.urls import path, re_path
 
 import juntagrico
 
-# Custom Views of Pura Verdura
+# Import custom views of Pura Verdura that are decalred in views.py
 from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
 from puraverdura import views_admin as puraverdura_admin
@@ -31,19 +31,20 @@ urlpatterns = [
     re_path(r'^impersonate/', include('impersonate.urls')),
     re_path(r'^djrichtextfield/', include('djrichtextfield.urls')),
 
+    # Import Juntagrico URLs
     re_path(r'^', include('juntagrico.urls')),
     re_path(r'^$', juntagrico.views.home),
-
     path('badges/', include('juntagrico_badges.urls')),
-
     re_path(r'^', include('juntagrico_pg.urls')),
 
+    # Add Custom Puraverdura views
     # member email list
     path('my/filters_emails/', puraverdura.filters_emails, name='filters_emails'),
 
     # tutorial section
     path('my/tutorials/', puraverdura.tutorials, name='tutorials'),
 
+    # Override Juntagrico views
     # override share certificate
     path('my/share/certificate/', puraverdura_subscription.share_certificate, name='share-certificate'),
 
