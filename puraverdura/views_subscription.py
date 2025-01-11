@@ -28,19 +28,22 @@ def share_certificate(request):
     member = request.user.member
     active_share_years = member.active_share_years
     if year >= timezone.now().year or year not in active_share_years:
-        return error_page(request, _('{}-Bescheinigungen können nur für vergangene Jahre ausgestellt werden.').format(Config.vocabulary('share')))
+        return error_page(request, _('{}-Bescheinigungen können nur für vergangene Jahre ausgestellt werden.').format(
+            Config.vocabulary('share')))
     shares_date = date(year, 12, 31)
-    shares = member.active_shares_for_date(date=shares_date).values('value').annotate(count=Count('value')).annotate(total=Sum('value')).order_by('value')
-    
-    share_id = [str(id['number']) for id in member.active_shares_for_date(date=shares_date).values('number').order_by('number')]
+    shares = member.active_shares_for_date(date=shares_date).values('value').annotate(count=Count('value')).annotate(
+        total=Sum('value')).order_by('value')
+
+    share_id = [str(id['number']) for id in
+                member.active_shares_for_date(date=shares_date).values('number').order_by('number')]
     share_id_str = ', '.join(share_id)
 
     logo_url = os.path.join(settings.STATIC_ROOT, 'img', 'Pura-Verdura-logo.png')
-    #print(logo_url)
-    #print(share_id_str)
-    #share_set = member.active_shares_for_date(date=shares_date)
-    #print(share_set[0].__dict__)
-    
+    # print(logo_url)
+    # print(share_id_str)
+    # share_set = member.active_shares_for_date(date=shares_date)
+    # print(share_set[0].__dict__)
+
     shares_total = 0
     for share in shares:
         shares_total = shares_total + share['total']
@@ -61,30 +64,26 @@ def error_page(request, error_message):
     return render(request, 'error.html', renderdict)
 
 
-
 class MembershipAndSubscriptionCancellationForm(forms.Form):
-
-    regular_or_now_choices=[('regular','regulär'),
-                        ('now','ab jetzt')]
+    regular_or_now_choices = [('regular', 'regulär'),
+                              ('now', 'ab jetzt')]
     regular_or_now = forms.ChoiceField(choices=regular_or_now_choices, widget=forms.RadioSelect, initial='regular')
 
-    cancel_membership_choices=[('no','Ich möchte Mitglied bei Pura Verdura bleiben'),
-                    ('yes','Ich möchte meine Mitgliedschaft auch kündigen')]
+    cancel_membership_choices = [('no', 'Ich möchte Mitglied bei Pura Verdura bleiben'),
+                                 ('yes', 'Ich möchte meine Mitgliedschaft auch kündigen')]
     cancel_membership = forms.ChoiceField(choices=cancel_membership_choices, widget=forms.RadioSelect, initial='no')
 
     iban = forms.CharField(label='iban', required=False)
     message = forms.CharField(label='message', widget=forms.Textarea, required=False)
-
 
     def __init__(self, *args, **kwargs):
         if 'juntagrico_member' in kwargs:
             member = kwargs.pop('juntagrico_member')
         else:
             member = None
-        super(MembershipAndSubscriptionCancellationForm, self).__init__(*args, **kwargs) 
+        super(MembershipAndSubscriptionCancellationForm, self).__init__(*args, **kwargs)
         if member:
             self.fields['iban'].initial = member.iban
-    
 
     def clean_iban(self):
         iban = self.data.get('iban', '')
@@ -97,10 +96,9 @@ class MembershipAndSubscriptionCancellationForm(forms.Form):
         return iban
 
 
-
-#@primary_member_of_subscription
+# @primary_member_of_subscription
 def cancel_subscription(request, subscription_id):
-    #Subscription
+    # Subscription
     # subscription = get_object_or_404(Subscription, id=subscription_id)
 
     if request.user.is_authenticated:
@@ -110,7 +108,7 @@ def cancel_subscription(request, subscription_id):
 
     now = timezone.now().date()
     end_date_sub = end_of_business_year() if now <= cancelation_date() else end_of_next_business_year()
-    #Membership and Subscription
+    # Membership and Subscription
     asc = member.usable_shares_count
     sub = member.subscription_current
     f_sub = member.subscription_future
@@ -122,9 +120,9 @@ def cancel_subscription(request, subscription_id):
     share_error = future or current
     can_cancel = not share_error and not future_active and not current_active
 
-    #end_date_mem = next_membership_end_date()
+    # end_date_mem = next_membership_end_date()
     end_date_mem = end_date_sub
-    
+
     if request.method == 'POST':
         form = MembershipAndSubscriptionCancellationForm(request.POST, juntagrico_member=member)
         if form.is_valid():
@@ -156,7 +154,6 @@ def cancel_subscription(request, subscription_id):
                 member.end_date = end_date_mem
                 member.cancellation_date = now
                 [cancel_share(s, now, end_date_mem) for s in member.active_shares]
-                #[cancel_share(s, now, now) for s in member.active_shares]
                 member.save()
                 return redirect('profile')
 
