@@ -84,7 +84,7 @@
                                     Kein {% vocabulary "depot" %}
                                 {% endif %}
                             </td>
-                            <td class="email">
+                            <td id="email" class="email">
                                 {{ member.email }}
                             </td>
                         </tr>
@@ -99,27 +99,29 @@
 
 {% block scripts %}
     <script>
+        const copy_btn = document.getElementById("copy-email");
+        copy_btn.onclick = function() {
+            const table = document.getElementById("filter-table");
+            const tableRows = table?.rows;
 
-        var copy_btn = document.getElementById("copy-email");
-        copy_btn.onclick = function(){
-            var emails = [];
-            $("#filter-table").find("tr").each(function () {
-                var txt = $(".email", this).text().trim();
-                if (txt.length > 0 && txt != "-")
-                    emails.push(txt);
-            });
-            var emails_formated = emails.join(";\n");
-            console.log(emails_formated)
-            window.alert(`Kopiere die E-Mail Adressen unten in dein E-Mail Programm um eine Nachricht an alle Mitglieder in der Liste zu senden:\n\n${emails_formated}\n\n`);
+            const emailsArray = [];
+
+            for (let row of tableRows) {
+                const emailCell = row?.querySelector("#email");
+                const emailAdress = emailCell?.innerText?.trim();
+
+                if(emailAdress) {
+                    emailsArray.push(emailAdress);
+                }
+            }
+
+            const emailsToCopy = emailsArray.join(";\n");
+
+            navigator.clipboard.writeText(emailsToCopy).then(() => {
+                window.alert(`Die E-Mail-Adressen aller Mitglieder die unten in der Tabelle stehen wurden in die Zwischenablage kopiert. Du kannst sie nun in dein Mail-Programm einfügen.\n\nAnzahl kopierte Adressen: ${emailsArray.length}`);
+            })
         }
-        var email_string = "{% trans "Email senden" %}";
-        var send_string = "{% trans "senden" %}";
-        var email_single_string = "{% trans "Email an diesen" %}";
-        var email_multi_string = "{% trans "Email an diese" %}"
-        var member_string = "{% vocabulary "member" %}";
-        var members_string = "{% vocabulary "member_pl" %}";
     </script>
-
     <script type="text/javascript" src="/static/juntagrico/external/datatables.min.js">
     </script>
     <script type="text/javascript" src="/static/juntagrico/external/require.min.js" data-main="/static/juntagrico/js/initMembers.js">
