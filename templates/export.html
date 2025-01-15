@@ -4,8 +4,8 @@
 {% block content %}
     {{ block.super }} {#% insert the original content of this block, if you want %#}
 {% vocabulary "member_pl" as v_member_pl %}
-{% vocabulary "share_pl" as v_share_pl %}
-{% vocabulary "subscription_pl" as v_subscription_pl %}
+{% vocabulary "share" as v_share %}
+{% vocabulary "subscription" as v_subscription %}
     <h3>Exporte für Email Octopus</h3>
      <div class="row mb-4">
         <div class="col-md-3">
@@ -19,7 +19,7 @@
     </div>
     <div class="row mb-4">
         <div class="col-md-3">
-            {{ v_member_pl }} mit {{ v_subscription_pl }}
+           {{ v_subscription }}-Bezieher:innen (inkl. Mitabonnent:innen)
         </div>
         <div class="col-md-9">
             <a href="{% url 'export-members-with-sub-for-email' %}">
@@ -29,7 +29,7 @@
     </div>
     <div class="row mb-4">
         <div class="col-md-3">
-            {{ v_member_pl }} mit {{ v_share_pl }}
+           Alle mit {{ v_share }}
         </div>
         <div class="col-md-9">
             <a href="{% url 'export-members-with-shares-for-email' %}">
