@@ -8,6 +8,16 @@
 {% vocabulary "share_pl" as v_share_pl %}
 {% vocabulary "subscription_pl" as v_subscription_pl %}
     <h3>Exporte für Email Octopus</h3>
+     <div class="row mb-4">
+        <div class="col-md-3">
+            Alle {{ v_member_pl }}
+        </div>
+        <div class="col-md-9">
+            <a href="{% url 'export-all-members' %}">
+                {% trans "exportieren" %}
+            </a>
+        </div>
+    </div>
     <div class="row mb-4">
         <div class="col-md-3">
             {{ v_member_pl }} mit {{ v_subscription_pl }}

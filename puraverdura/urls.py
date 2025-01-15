@@ -45,6 +45,7 @@ urlpatterns = [
     # Cutom member export
     path('my/export-members-with-sub/', puraverdura.csv_export_members_sub, name='export-members-with-sub'),
     path('my/export-members-with-shares/', puraverdura.csv_export_members_shares, name='export-members-with-shares'),
+    path('my/export-all-members/', puraverdura.csv_export_all_members, name='export-all-members'),
 
     # Override Juntagrico views
     # override share certificate

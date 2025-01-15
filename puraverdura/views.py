@@ -54,3 +54,20 @@ def csv_export_members_shares(request):
 
     response.write(content)
     return response
+
+@permission_required('juntagrico.can_view_exports')
+def csv_export_all_members(request):
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="members.csv"'},
+    )
+    MemberDao.all_members()
+    mebers = MemberDao.members_for_email()
+    content = "first_name, last_name, email \n"
+
+    for member in mebers:
+        member_info = member.first_name + ',' + member.last_name + "," + member.email
+        content += member_info + '\n'
+
+    response.write(content)
+    return response
