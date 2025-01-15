@@ -21,19 +21,23 @@ def cancel_membership(request):
     return cancel_subscription(request, subscription_id=None)
 
 
+def create_members_csv_content(members):
+    content = "first_name,last_name,email\n"
+    for member in members:
+        member_info = member.first_name + ',' + member.last_name + "," + member.email
+        content += member_info + '\n'
+
+    return content
+
 @permission_required('juntagrico.can_view_exports')
 def csv_export_members_sub(request):
     response = HttpResponse(
         content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="members_with_subs.csv"'},
+        headers={"Content-Disposition": 'attachment; filename="Mitglieder_mit_Ernteanteilen.csv"'},
     )
-    mebers_with_sub = MemberDao.members_for_email_with_subscription()
-    content = "first_name, last_name, email \n"
+    members_with_sub = MemberDao.members_for_email_with_subscription()
 
-    for member in mebers_with_sub:
-        member_info = member.first_name + ',' + member.last_name + "," + member.email
-        content += member_info + '\n'
-
+    content = create_members_csv_content(members_with_sub)
     response.write(content)
     return response
 
@@ -42,16 +46,12 @@ def csv_export_members_sub(request):
 def csv_export_members_shares(request):
     response = HttpResponse(
         content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="members_with_shares.csv"'},
+        headers={"Content-Disposition": 'attachment; filename="Mitglieder_mit_Anteilsscheinen.csv"'},
     )
     MemberDao.members_for_email_with_subscription()
-    mebers_with_shares = MemberDao.members_for_email_with_shares()
-    content = "first_name, last_name, email \n"
+    members_with_shares = MemberDao.members_for_email_with_shares()
 
-    for member in mebers_with_shares:
-        member_info = member.first_name + ',' + member.last_name + "," + member.email
-        content += member_info + '\n'
-
+    content = create_members_csv_content(members_with_shares)
     response.write(content)
     return response
 
@@ -59,15 +59,11 @@ def csv_export_members_shares(request):
 def csv_export_all_members(request):
     response = HttpResponse(
         content_type="text/csv",
-        headers={"Content-Disposition": 'attachment; filename="members.csv"'},
+        headers={"Content-Disposition": 'attachment; filename="Alle_Mitglieder.csv"'},
     )
     MemberDao.all_members()
-    mebers = MemberDao.members_for_email()
-    content = "first_name, last_name, email \n"
+    members = MemberDao.members_for_email()
 
-    for member in mebers:
-        member_info = member.first_name + ',' + member.last_name + "," + member.email
-        content += member_info + '\n'
-
+    content = create_members_csv_content(members)
     response.write(content)
     return response
