@@ -1,0 +1,31 @@
+{% extends "export.html" %}
+{% load i18n %}
+{% load juntagrico.config %}
+{% block content %}
+    {{ block.super }} {#% insert the original content of this block, if you want %#}
+
+{% vocabulary "member_pl" as v_member_pl %}
+{% vocabulary "share_pl" as v_share_pl %}
+{% vocabulary "subscription_pl" as v_subscription_pl %}
+    <h3>Exporte für Email Octopus</h3>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            {{ v_member_pl }} mit {{ v_subscription_pl }}
+        </div>
+        <div class="col-md-9">
+            <a href="{% url 'export-members-with-sub' %}">
+                {% trans "exportieren" %}
+            </a>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            {{ v_member_pl }} mit {{ v_share_pl }}
+        </div>
+        <div class="col-md-9">
+            <a href="{% url 'export-members-with-shares' %}">
+                {% trans "exportieren" %}
+            </a>
+        </div>
+    </div>
+{% endblock %}

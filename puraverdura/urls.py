@@ -42,6 +42,10 @@ urlpatterns = [
     # tutorial section
     path('my/tutorials/', puraverdura.tutorials, name='tutorials'),
 
+    # Cutom member export
+    path('my/export-members-with-sub/', puraverdura.csv_export_members_sub, name='export-members-with-sub'),
+    path('my/export-members-with-shares/', puraverdura.csv_export_members_shares, name='export-members-with-shares'),
+
     # Override Juntagrico views
     # override share certificate
     path('my/share/certificate/', puraverdura_subscription.share_certificate, name='share-certificate'),
