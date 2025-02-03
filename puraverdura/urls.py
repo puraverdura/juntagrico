@@ -21,6 +21,7 @@ import juntagrico
 # Import custom views of Pura Verdura that are decalred in views.py
 from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
+from puraverdura import views_create_subscription as puraverdura_create_subscription
 
 urlpatterns = [
     path(r'admin/shell/', include('django_admin_shell.urls')),
@@ -29,13 +30,13 @@ urlpatterns = [
     re_path(r'^impersonate/', include('impersonate.urls')),
     re_path(r'^djrichtextfield/', include('djrichtextfield.urls')),
 
-    # Import Juntagrico URLs
+    # ---- Import Juntagrico URLs ----
     re_path(r'^', include('juntagrico.urls')),
     re_path(r'^$', juntagrico.views.home),
     path('badges/', include('juntagrico_badges.urls')),
     re_path(r'^', include('juntagrico_pg.urls')),
 
-    # Add Custom Puraverdura views
+    # ---- Add Custom Puraverdura views ----
     # member email list
     path('my/filters_emails/', puraverdura.filters_emails, name='filters_emails'),
 
@@ -57,6 +58,9 @@ urlpatterns = [
 
     # override membership cancellation
     path('my/cancel/membership/', puraverdura.cancel_membership, name='cancel-membership'),
+
+    # override select_start_date form
+    path('my/create/subscription/start', puraverdura_create_subscription.cs_select_start_date, name='cs-start'),
 
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),

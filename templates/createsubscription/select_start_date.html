@@ -14,7 +14,11 @@
         <div class="row mb-4">
             <div class="col-md-12">
                 {% trans "Info" %}:
-                Die aktuelle Saison ist am 1. April 2024 gestartet. Es ist jedoch möglich, noch unter dem Jahr einzusteigen (zu einem entsprechend reduzierten Preis). Bitte gib hier Dein gewünschtes Startdatum an.
+                {% blocktrans trimmed with sd=start_date_current_year|date:"d.m.Y" %}
+                    Die aktuelle Saison ist am {{ start_date_current_year }} gestartet.
+                    Es ist jedoch möglich, noch unter dem Jahr einzusteigen (zu einem entsprechend reduzierten Preis).
+                    Bitte gib hier Dein gewünschtes Startdatum an.
+                {% endblocktrans %}
             </div>
         </div>
         <form action="" method="post">
