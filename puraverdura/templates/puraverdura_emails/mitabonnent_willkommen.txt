@@ -16,9 +16,9 @@
 {% blocktrans %}Wir freuen uns, dich bei {{ v_d_enriched_organisation }} zu begrüssen.{% endblocktrans %}
 
 {% if c_enable_shares %}
-{% blocktrans %}Soeben hat dich '{{name}}' als {{ v_co_member }} hinzugefügt und für dich {{ shares }} {{ v_share_pl }} bestellt.{% endblocktrans %}
+{% blocktrans with pm=sub.primary_member shares=co_member.usable_shares_count %}Soeben hat dich '{{pm}}' als {{ v_co_member }} hinzugefügt und für dich {{ shares }} {{ v_share_pl }} bestellt.{% endblocktrans %}
 {% else %}
-{% blocktrans %}Soeben hat dich '{{name}}' als {{ v_co_member }} hinzugefügt.{% endblocktrans %}
+{% blocktrans with pm=sub.primary_member %}Soeben hat dich '{{pm}}' als {{ v_co_member }} hinzugefügt.{% endblocktrans %}
 {% endif %}
 
 {% trans "Folgend findest du unsere Grundlagendokumente" %}:
@@ -33,7 +33,7 @@ Deine Login-Informationen
 
 Um dich einzuloggen, kannst du folgende Daten benutzen{% endblocktrans %}:
 
-{% trans "Email" %}: {{ username }}
+{% trans "Email" %}: {{ co_member.email }}
 {% trans "Passwort" %}: {{ password }}
 
 {% blocktrans %}Klicke bitte auf den folgenden Bestätigungslink, um deine Emailadresse zu bestätigen und damit wir dich als {{ v_member_type }} freischalten können:
