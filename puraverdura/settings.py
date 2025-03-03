@@ -205,13 +205,12 @@ ORGANISATION_BANK_CONNECTION = {"PC": "46-110-7",
 
 INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
 SERVER_URL = "www.puraverdura.ch"
-BUSINESS_REGULATIONS = "https://www.puraverdura.ch/wp-content/uploads/20210720_Betriebsreglement.pdf"
-BYLAWS = "https://www.puraverdura.ch/wp-content/uploads/Statuten_Pura-Verdura_Version_2022_nach-GV.pdf"
+BUSINESS_REGULATIONS = "https://wordpress.puraverdura.ch/wp-content/uploads/20210720_Betriebsreglement.pdf"
+BYLAWS = "https://wordpress.puraverdura.ch/wp-content/uploads/Statuten_Pura-Verdura_Version_2022_nach-GV.pdf"
 MAIL_TEMPLATE = "mails/email.html"
 STYLES = {'static': ['css/individual.css']}
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 FAVICON = "/static/img/favicono.ico"
-FAQ_DOC = "https://www.puraverdura.ch/faq/"
 EXTRA_SUB_INFO = ""
 ACTIVITY_AREA_INFO = ""
 SHARE_PRICE = "500"
