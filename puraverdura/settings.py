@@ -205,7 +205,7 @@ ORGANISATION_BANK_CONNECTION = {"PC": "46-110-7",
 
 INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
 SERVER_URL = "www.puraverdura.ch"
-BUSINESS_REGULATIONS = "https://wordpress.puraverdura.ch/wp-content/uploads/20210720_Betriebsreglement.pdf"
+BUSINESS_REGULATIONS = "https://wordpress.puraverdura.ch/wp-content/uploads/Betriebsreglement-Pura-Verdura-2022-05-24.pdf"
 BYLAWS = "https://wordpress.puraverdura.ch/wp-content/uploads/Statuten-PuraVerdura-2024.pdf"
 MAIL_TEMPLATE = "mails/email.html"
 STYLES = {'static': ['css/individual.css']}
