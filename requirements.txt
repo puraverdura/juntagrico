@@ -1,6 +1,4 @@
-reportlab==3.6.6
-
-juntagrico==1.5.8
+juntagrico==1.5.9
 
 gunicorn==20.0.4
 psycopg2==2.8.4
