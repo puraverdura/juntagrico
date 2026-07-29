@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
+                'puraverdura.context_processors.staging',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -249,3 +250,13 @@ EMAILS = {
 
 # Admin shell
 ADMIN_SHELL_ONLY_DEBUG_MODE = True
+
+# Staging
+IS_STAGING = os.environ.get('JUNTAGRICO_STAGING') == '1'
+if IS_STAGING:
+    # staging URL erlauben
+    ALLOWED_HOSTS.append('puraverdura-staging.juntagrico.science')
+    ALLOWED_HOSTS.append('test.login.puraverdura.ch')
+
+    # E-Mails Deaktivieren
+    EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
