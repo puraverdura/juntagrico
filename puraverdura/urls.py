@@ -16,8 +16,6 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path, re_path
 
-import juntagrico
-
 # Import custom views of Pura Verdura that are decalred in views.py
 from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
@@ -32,8 +30,7 @@ urlpatterns = [
 
     # ---- Import Juntagrico URLs ----
     re_path(r'^', include('juntagrico.urls')),
-    re_path(r'^$', juntagrico.views.home),
-    path('badges/', include('juntagrico_badges.urls')),
+    path('', include('juntagrico_badges.urls')),
     re_path(r'^', include('juntagrico_pg.urls')),
 
     # ---- Add Custom Puraverdura views ----

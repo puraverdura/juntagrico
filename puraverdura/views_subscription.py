@@ -113,8 +113,9 @@ def cancel_subscription(request, subscription_id):
     sub = member.subscription_current
     f_sub = member.subscription_future
 
-    future_active = f_sub is not None and (f_sub.state == 'active' or f_sub.state == 'waiting')
-    current_active = sub is not None and (sub.state == 'active' or sub.state == 'waiting')
+    # since juntagrico 1.6 a canceled subscription keeps its state until deactivation, so check `canceled` explicitly
+    future_active = f_sub is not None and not f_sub.canceled and (f_sub.state == 'active' or f_sub.state == 'waiting')
+    current_active = sub is not None and not sub.canceled and (sub.state == 'active' or sub.state == 'waiting')
     future = future_active and f_sub.share_overflow - asc < 0
     current = current_active and sub.share_overflow - asc < 0
     share_error = future or current
@@ -157,7 +158,7 @@ def cancel_subscription(request, subscription_id):
                 member.save()
                 return redirect('profile')
 
-            return redirect('sub-detail')
+            return redirect('subscription-landing')
     else:
         form = MembershipAndSubscriptionCancellationForm(juntagrico_member=member)
     renderdict = {

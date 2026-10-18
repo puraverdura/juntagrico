@@ -26,13 +26,15 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'polymorphic',
     'django_admin_shell',
-    'juntagrico',
+    'puraverdura',
+    'juntagrico_pg',
     'juntagrico_badges',
+    'juntagrico',
+    'fontawesomefree',  # benötigt ab 1.6
+    'import_export',  # benötigt ab 1.6
     'impersonate',
     'crispy_forms',
-    'puraverdura',
     'adminsortable2',
-    'juntagrico_pg'
 ]
 
 ROOT_URLCONF = 'puraverdura.urls'
@@ -84,10 +86,6 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
 
 # Change maximum number of allowed fields (default: 1000)
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 3000
@@ -160,7 +158,7 @@ IMPERSONATE = {
     'REDIRECT_URL': '/my/profile',
 }
 
-LOGIN_REDIRECT_URL = "/my/home"
+LOGIN_REDIRECT_URL = "/"
 
 # File & Storage Settings
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
@@ -204,13 +202,27 @@ ORGANISATION_BANK_CONNECTION = {"PC": "46-110-7",
                                 "NAME": "ABS",
                                 "ESR": ""}
 
-INFO_EMAIL = '"Pura Verdura" <mitglieder@puraverdura.ch>'
-SERVER_URL = "www.puraverdura.ch"
+CONTACTS = {
+    "general": '"Pura Verdura" <mitglieder@puraverdura.ch>'
+}
+
+ORGANISATION_WEBSITE = {
+    'name': "www.puraverdura.ch",
+    'url': "https://www.puraverdura.ch"
+}
+
 BUSINESS_REGULATIONS = "https://wordpress.puraverdura.ch/wp-content/uploads/Betriebsreglement-Pura-Verdura-2022-05-24.pdf"
 BYLAWS = "https://wordpress.puraverdura.ch/wp-content/uploads/Statuten-PuraVerdura-2024.pdf"
 MAIL_TEMPLATE = "mails/email.html"
 STYLES = {'static': ['css/individual.css']}
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
 FAVICON = "/static/img/favicono.ico"
 EXTRA_SUB_INFO = ""
 ACTIVITY_AREA_INFO = ""
@@ -238,6 +250,8 @@ IMAGES = {'status_100': '/static/img/status_100_cropped.png',
           'core': '/static/img/samen_iconized.png'}
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
 
 EMAILS = {
     'welcome': 'puraverdura_emails/willkommen_mail.txt',

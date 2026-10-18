@@ -1,0 +1,15 @@
+{% extends "juntagrico/menu/user.html" %}
+{% load i18n %}
+{% block extend %}
+    {{ block.super }}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'filters_emails' %}">
+            {% trans "Mitglieder E-Mails" %}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'tutorials' %}">
+            {% trans "Infos und Anleitungen" %}
+        </a>
+    </li>
+{% endblock %}

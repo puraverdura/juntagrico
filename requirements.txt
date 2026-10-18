@@ -1,15 +1,15 @@
-juntagrico==1.5.9
+juntagrico~=1.6.0
 
-gunicorn==20.0.4
-psycopg2==2.8.4
+gunicorn==22.0.0
+psycopg>=3.1.8
 
 openpyxl==3.0.6
 
 # Admin Shell
-django-admin-shell==1.1.0
+django-admin-shell==2.0.1
 
 # juntagrico badges
-git+https://github.com/juntagrico/juntagrico-badges.git@1.5.0
+juntagrico-badges==1.6.0
 
 # juntagrico pd
-juntagrico-pg==1.5.0
+juntagrico-pg==1.6.1

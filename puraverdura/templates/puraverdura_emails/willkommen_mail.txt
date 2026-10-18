@@ -3,7 +3,7 @@
 {% load juntagrico.config %}
 {% block content %}
 {% config "enable_shares" as c_enable_shares %}
-{% config "info_email" as c_info_email %}
+{% contacts "general" as c_info_email %}
 {% config "faq_doc" as c_faq_doc %}
 {% config "organisation_name" as c_organisation_name %}
 {% enriched_organisation "D" as v_d_enriched_organisation %}
