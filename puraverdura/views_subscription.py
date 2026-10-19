@@ -15,7 +15,7 @@ from juntagrico.config import Config
 from juntagrico.util.pdf import render_to_pdf_http
 from juntagrico.util.temporal import end_of_next_business_year, end_of_business_year, \
     cancelation_date, next_membership_end_date
-from juntagrico.util.management import cancel_sub, cancel_share
+from juntagrico.util.management import cancel_sub
 from juntagrico.view_decorators import primary_member_of_subscription
 from juntagrico.mailer import adminnotification
 
@@ -24,7 +24,11 @@ from schwifty import IBAN
 
 @login_required
 def share_certificate(request):
-    year = int(request.GET['year'])
+    # the year is chosen in the form on the shares page; without a valid year send the member there
+    try:
+        year = int(request.GET['year'])
+    except (KeyError, ValueError):
+        return redirect('manage-shares')
     member = request.user.member
     active_share_years = member.active_share_years
     if year >= timezone.now().year or year not in active_share_years:
@@ -154,7 +158,7 @@ def cancel_subscription(request, subscription_id):
             if cancel_membership == 'yes':
                 member.end_date = end_date_mem
                 member.cancellation_date = now
-                [cancel_share(s, now, end_date_mem) for s in member.active_shares]
+                [s.cancel(now, end_date_mem) for s in member.active_shares]
                 member.save()
                 return redirect('profile')
 
