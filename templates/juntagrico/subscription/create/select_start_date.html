@@ -1,7 +1,9 @@
-{% extends "createsubscription/select_start_date.html" %}
+{% extends "juntagrico/subscription/create/select_start_date.html" %}
 {% load i18n %}
+{% load puraverdura.temporal %}
 
 {% block intro %}
+    {% start_of_business_year as start_date_current_year %}
     {% trans "Info" %}:
     {% blocktrans trimmed %}
         Die aktuelle Saison ist am {{ start_date_current_year }} gestartet.

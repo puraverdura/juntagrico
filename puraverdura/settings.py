@@ -3,6 +3,8 @@ Django settings for puraverdura project.
 """
 import os
 
+from juntagrico import defaults
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,17 +25,19 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+    'juntagrico.apps.JuntagricoAdminConfig',
     'polymorphic',
     'django_admin_shell',
     'puraverdura',
     'juntagrico_pg',
     'juntagrico_badges',
     'juntagrico',
-    'fontawesomefree',  # benötigt ab 1.6
-    'import_export',  # benötigt ab 1.6
+    'import_export',
     'impersonate',
     'crispy_forms',
+    'crispy_bootstrap4',
+    'django_select2',
+    'djrichtextfield',
     'adminsortable2',
 ]
 
@@ -81,6 +85,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'puraverdura.wsgi.application'
 
 LANGUAGE_CODE = 'de'
+DJRICHTEXTFIELD_CONFIG = defaults.richtextfield_config(LANGUAGE_CODE)
 
 SITE_ID = 1
 
@@ -119,16 +124,17 @@ EMAIL_USE_TLS = os.environ.get('JUNTAGRICO_EMAIL_TLS', 'False') == 'True'
 EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False') == 'True'
 
 FROM_FILTER = {
-    # This regex matches @puraverdura.ch email addresses, standalone or in "Name" <email> format.
-    'filter_expression': '(?:\"[A-Za-zÄäÖöÜüß0-9._%+\s-]+\" )?<([A-Za-z0-9._%+-]+@puraverdura\.ch)>|[A-Za-z0-9._%+-]+@puraverdura\.ch',
-    'replacement_from': '"Pura Verdura Mitglied" <server@puraverdura.ch>'
+    # Since juntagrico 2.0 the expression is matched against the bare sender address and only the address is
+    # replaced, the sender name (e.g. "Leo von Pura Verdura") is kept and the original address is set as reply-to.
+    'filter_expression': r'[A-Za-z0-9._%+-]+@puraverdura\.ch$',
+    'replacement_from': 'server@puraverdura.ch'
 }
 
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
 
-DEFAULT_MAILER = 'juntagrico.util.mailer.batch.Mailer'
+EMAIL_BACKEND = 'juntagrico.backends.email.BatchEmailBackend'
 BATCH_MAILER = {
     'batch_size': 39,
     'wait_time': 65
@@ -136,15 +142,13 @@ BATCH_MAILER = {
 
 DEFAULT_FROM_EMAIL = 'it@puraverdura.ch'
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
-
 WHITELIST_EMAILS = []
 
 
 def whitelist_email_from_env(var_env_name):
     email = os.environ.get(var_env_name)
     if email:
-        WHITELIST_EMAILS.append(email.replace('@gmail.com', '(\+\S+)?@gmail.com'))
+        WHITELIST_EMAILS.append(email.replace('@gmail.com', r'(\+\S+)?@gmail.com'))
 
 
 if DEBUG is True:
@@ -214,7 +218,6 @@ ORGANISATION_WEBSITE = {
 
 BUSINESS_REGULATIONS = "https://wordpress.puraverdura.ch/wp-content/uploads/Betriebsreglement-Pura-Verdura-2022-05-24.pdf"
 BYLAWS = "https://wordpress.puraverdura.ch/wp-content/uploads/Statuten-PuraVerdura-2024.pdf"
-MAIL_TEMPLATE = "mails/email.html"
 STYLES = {'static': ['css/individual.css']}
 STORAGES = {
     "default": {
@@ -232,8 +235,10 @@ ENABLE_SHARES = True
 BASE_FEE = ""
 CURRENCY = "CHF"
 ASSIGNMENT_UNIT = "ENTITY"
-PROMOTED_JOB_TYPES = []
-PROMOTED_JOBS_AMOUNT = 2
+JOBS_FRONTPAGE = {
+    'promoted_types': [],
+    'promoted_count': 2,
+}
 DEPOT_LIST_GENERATION_DAYS = [1, 2, 3, 4, 5, 6, 7]
 BILLING = False
 BUSINESS_YEAR_START = {"day": 1, "month": 4}

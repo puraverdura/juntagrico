@@ -1,12 +1,18 @@
-{% extends "export.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load juntagrico.config %}
+{% block page_title %}
+    <h3>
+        {% trans "Exporte" %}
+    </h3>
+{% endblock %}
 {% block content %}
-    {{ block.super }} {#% insert the original content of this block, if you want %#}
 {% vocabulary "member_pl" as v_member_pl %}
 {% vocabulary "share" as v_share %}
+{% vocabulary "share_pl" as v_share_pl %}
 {% vocabulary "subscription" as v_subscription %}
-    <h3>Exporte für Email Octopus</h3>
+{% vocabulary "subscription_pl" as v_subscription_pl %}
+    <h4>Exporte für Email Octopus</h4>
      <div class="row mb-4">
         <div class="col-md-3">
             Alle {{ v_member_pl }}
@@ -37,4 +43,14 @@
             </a>
         </div>
     </div>
+
+    <h4>Weitere Exporte</h4>
+    <p>
+        Weitere Exporte können in der Administration mit dem Export-Knopf oben rechts in den Listen erstellt werden:
+    </p>
+    <ul>
+        <li><a href="{% url 'admin:juntagrico_member_changelist' %}">{{ v_member_pl }}</a></li>
+        <li><a href="{% url 'admin:juntagrico_subscription_changelist' %}">{{ v_subscription_pl }}</a></li>
+        <li><a href="{% url 'admin:juntagrico_share_changelist' %}">{{ v_share_pl }}</a></li>
+    </ul>
 {% endblock %}

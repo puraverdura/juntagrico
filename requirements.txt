@@ -1,4 +1,4 @@
-juntagrico~=1.7.0
+juntagrico~=2.0.0
 
 gunicorn==22.0.0
 psycopg>=3.1.8
@@ -9,7 +9,7 @@ openpyxl==3.0.6
 django-admin-shell==2.0.1
 
 # juntagrico badges
-juntagrico-badges==1.7.0
+juntagrico-badges==2.0.0
 
 # juntagrico pd
-juntagrico-pg==1.7.0
+juntagrico-pg==2.0.0

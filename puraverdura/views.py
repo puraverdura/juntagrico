@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
-from juntagrico.dao.memberdao import MemberDao
+from juntagrico.entity.member import Member
 from django.shortcuts import render
 from puraverdura.views_subscription import cancel_subscription
 
 @login_required
 def filters_emails(request):
-    members = MemberDao.active_members()
+    members = Member.objects.active()
     renderdict = {
         'members': members
     }
@@ -29,13 +29,19 @@ def create_members_csv_content(members):
 
     return content
 
+
+@permission_required('juntagrico.can_view_exports')
+def export(request):
+    return render(request, 'puraverdura/export.html', {})
+
+
 @permission_required('juntagrico.can_view_exports')
 def csv_export_members_sub(request):
     response = HttpResponse(
         content_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="Mitglieder_mit_Ernteanteilen.csv"'},
     )
-    members_with_sub = MemberDao.members_for_email_with_subscription()
+    members_with_sub = Member.objects.active().has_active_subscription().distinct()
 
     content = create_members_csv_content(members_with_sub)
     response.write(content)
@@ -48,8 +54,7 @@ def csv_export_members_shares(request):
         content_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="Mitglieder_mit_Anteilsscheinen.csv"'},
     )
-    MemberDao.members_for_email_with_subscription()
-    members_with_shares = MemberDao.members_for_email_with_shares()
+    members_with_shares = Member.objects.active().has_active_shares().distinct()
 
     content = create_members_csv_content(members_with_shares)
     response.write(content)
@@ -61,8 +66,7 @@ def csv_export_all_members(request):
         content_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="Alle_Mitglieder.csv"'},
     )
-    MemberDao.all_members()
-    members = MemberDao.members_for_email()
+    members = Member.objects.active()
 
     content = create_members_csv_content(members)
     response.write(content)

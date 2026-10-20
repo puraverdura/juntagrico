@@ -1,4 +1,4 @@
-{% extends "management_lists/man_list_base.html" %}
+{% extends "juntagrico/manage/base.html" %}
 {% load i18n %}
 {% load juntagrico.config %}
 {% block page_title %}
@@ -7,7 +7,7 @@
         {{ title }}
     </h3>
 {% endblock %}
-{% block management_cmd %}
+{% block content %}
     <div id="disclaimer">
         <span>
             Hier findest du eine filterbare Liste der E-mail Adressen von allen Mitgliedern von Pura Verdura. <br>
@@ -26,6 +26,7 @@
     <button class="btn btn-success" id="copy-email">
         {% trans "Email Adresse(n) kopieren" %}
     </button>
+    {{ block.super }}
 {% endblock %}
 {% block list %}
     <div id="filter">

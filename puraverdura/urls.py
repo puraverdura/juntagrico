@@ -19,14 +19,12 @@ from django.urls import path, re_path
 # Import custom views of Pura Verdura that are decalred in views.py
 from puraverdura import views as puraverdura
 from puraverdura import views_subscription as puraverdura_subscription
-from puraverdura import views_create_subscription as puraverdura_create_subscription
 
 urlpatterns = [
     path(r'admin/shell/', include('django_admin_shell.urls')),
     re_path(r'^admin/', admin.site.urls),
 
     re_path(r'^impersonate/', include('impersonate.urls')),
-    re_path(r'^djrichtextfield/', include('djrichtextfield.urls')),
 
     # ---- Import Juntagrico URLs ----
     re_path(r'^', include('juntagrico.urls')),
@@ -40,7 +38,8 @@ urlpatterns = [
     # tutorial section
     path('my/tutorials/', puraverdura.tutorials, name='tutorials'),
 
-    # Custom member export
+    # Custom member export (juntagrico removed its own export page in 2.0)
+    path('my/export', puraverdura.export, name='export'),
     path('my/export-members-with-sub-for-email/', puraverdura.csv_export_members_sub, name='export-members-with-sub-for-email'),
     path('my/export-members-with-shares-for-email/', puraverdura.csv_export_members_shares, name='export-members-with-shares-for-email'),
     path('my/export-all-members-for-email/', puraverdura.csv_export_all_members, name='export-all-members-for-email'),
@@ -55,9 +54,6 @@ urlpatterns = [
 
     # override membership cancellation
     path('my/cancel/membership/', puraverdura.cancel_membership, name='cancel-membership'),
-
-    # override select_start_date form
-    path('my/create/subscription/start', puraverdura_create_subscription.cs_select_start_date, name='cs-start'),
 
     # override profile (trailing forward slach is important)
     # path('my/profile/', puraverdura.profile, name='profile'),
