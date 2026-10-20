@@ -12,7 +12,71 @@
 {% vocabulary "share_pl" as v_share_pl %}
 {% vocabulary "subscription" as v_subscription %}
 {% vocabulary "subscription_pl" as v_subscription_pl %}
-    <h4>Exporte für Email Octopus</h4>
+    {# the exports juntagrico removed in 2.0, with directions to their replacement in the admin (as on the 1.7 page) #}
+    {% vocabulary "assignment_pl" as v_assignment_pl %}
+    <h4>Weitere Exporte</h4>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            {{ v_member_pl }}
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-warning">
+                {% trans "Neu: Datenverwaltung" %}
+                <a href="{% url 'admin:juntagrico_member_changelist' %}">&rarr; {{ v_member_pl }}</a>
+                {% trans "&rarr; Exportieren (oben rechts)" %}
+                {% trans "&rarr; Ressource:" %} "{{ v_member_pl }}"
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            {% blocktrans %}{{ v_member_pl }} mit {{ v_assignment_pl }} und Tätigketsbereichen{% endblocktrans %}
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-warning">
+                {% trans "Neu: Datenverwaltung" %}
+                <a href="{% url 'admin:juntagrico_member_changelist' %}">&rarr; {{ v_member_pl }}</a>
+                {% trans "&rarr; Exportieren (oben rechts)" %}
+                {% trans "&rarr; Ressource:" %} "{{ v_member_pl }} {% trans "mit ..." %}"
+            </div>
+        </div>
+    </div>
+    {% config "enable_shares" as c_enable_shares %}
+    {% if c_enable_shares %}
+        <div class="row mb-4">
+            <div class="col-md-3">
+                {{ v_share_pl }}
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-warning">
+                    {% trans "Neu: Datenverwaltung" %}
+                    <a href="{% url 'admin:juntagrico_share_changelist' %}">&rarr; {{ v_share_pl }}</a>
+                    {% trans "&rarr; Exportieren (oben rechts)" %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row mb-4">
+        <div class="col-md-3">
+            {{ v_subscription_pl }}
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-warning">
+                {% trans "Neu: Datenverwaltung" %}
+                <a href="{% url 'admin:juntagrico_subscription_changelist' %}">&rarr; {{ v_subscription_pl }}</a>
+                {% trans "&rarr; Exportieren (oben rechts)" %}
+            </div>
+        </div>
+    </div>
+        <h4>Exporte für Email Octopus</h4>
      <div class="row mb-4">
         <div class="col-md-3">
             Alle {{ v_member_pl }}
@@ -43,14 +107,4 @@
             </a>
         </div>
     </div>
-
-    <h4>Weitere Exporte</h4>
-    <p>
-        Weitere Exporte können in der Administration mit dem Export-Knopf oben rechts in den Listen erstellt werden:
-    </p>
-    <ul>
-        <li><a href="{% url 'admin:juntagrico_member_changelist' %}">{{ v_member_pl }}</a></li>
-        <li><a href="{% url 'admin:juntagrico_subscription_changelist' %}">{{ v_subscription_pl }}</a></li>
-        <li><a href="{% url 'admin:juntagrico_share_changelist' %}">{{ v_share_pl }}</a></li>
-    </ul>
 {% endblock %}
